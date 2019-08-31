@@ -4,11 +4,9 @@
     接收属性参数：
       lat: 纬度
       lng: 经度
-    自定义事件：
-      drag: 拖放完成事件
  * @Author: your name
  * @Date: 2019-08-29 13:38:27
- * @LastEditTime: 2019-08-31 23:34:01
+ * @LastEditTime: 2019-08-31 23:52:10
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -16,8 +14,12 @@
     <div class="search">
       <input type="text" id="pickerInput" placeholder="请输入关键字">
     </div>
-    <div id="js-container" class="map">正在加载数据 ...</div>
-    <div id="js-result" class="result"></div>
+    <div class="m-container">
+      <div id="js-container" class="map">正在加载数据 ...</div>
+    </div>
+    <div class="m-result">
+      <div id="js-result" class="result"></div>
+    </div>
   </div>
 </template>
 
@@ -216,11 +218,17 @@ export default {
   display: block;
   clear: both;
 }
-.m-map .map {
-  display: inline-block;
+.m-map .m-container {
+  padding: 20px;
   width: 70%;
   height: 100%;
-  margin: 20px;
+  box-sizing: border-box;
+  float: left;
+}
+.m-map .map {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
   border: 2px solid #ccc;
 }
 .m-map .search {
@@ -237,13 +245,18 @@ export default {
   padding: 5px;
   outline: none;
 }
+.m-map .m-result {
+  width: 29%;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 20px;
+  display: inline-block;
+}
 .m-map .result {
   display: inline-block;
+  width: 100%;
   height: 100%;
-  width: 25%;
   overflow: auto;
-  margin-top: 10px;
-  margin: 20px;
   border: 2px solid #ccc;
 }
 .clr {
