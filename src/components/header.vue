@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-08-28 19:45:12
- * @LastEditTime: 2019-08-29 17:37:32
+ * @LastEditTime: 2019-08-31 16:24:58
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -55,7 +55,7 @@ export default {
 };
 </script>
 
-<style scoped lang='scss'>
+<style scoped lang='less'>
 #b-header {
   background-color: #0091ea;
   width: 100%;

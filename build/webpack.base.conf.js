@@ -1,10 +1,17 @@
+/*
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-08-27 01:10:53
+ * @LastEditTime: 2019-08-31 16:24:36
+ * @LastEditors: Please set LastEditors
+ */
 'use strict'
 const path = require('path')
 const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
 
-function resolve (dir) {
+function resolve(dir) {
   return path.join(__dirname, '..', dir)
 }
 
@@ -64,6 +71,22 @@ module.exports = {
           limit: 10000,
           name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
         }
+      },
+      {
+        test: /\.css$/,
+        loader: ["vue-style-loader", "css-loader"],
+        include: []
+      },
+      {
+        test: /\.less$/, use: ['style-loader', { loader: 'css-loader', options: { importLoaders: 1 } }, 'less-loader']
+      },
+      {
+        test: /\.(scss|sass)$/,
+        loader: ["node-sass", "vue-style-loader", "css-loader", "sass-loader"]
+      },
+      {
+        test: /\.scss/,
+        loaders: ['css', 'autoprefixer', 'sass'],
       }
     ]
   },

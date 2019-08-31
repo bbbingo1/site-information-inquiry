@@ -8,7 +8,7 @@
       drag: 拖放完成事件
  * @Author: your name
  * @Date: 2019-08-29 13:38:27
- * @LastEditTime: 2019-08-29 18:10:03
+ * @LastEditTime: 2019-08-31 16:25:11
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -116,7 +116,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang='less'>
 .m-map {
   min-width: 500px;
   min-height: 300px;

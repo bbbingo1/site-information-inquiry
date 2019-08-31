@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-08-27 01:10:53
- * @LastEditTime: 2019-08-29 17:59:17
+ * @LastEditTime: 2019-08-31 16:18:21
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -54,7 +54,7 @@ export default {
 };
 </script>
 
-<style scoped lang='scss'>
+<style scoped>
 .info {
   margin: 0;
   padding: 0;
