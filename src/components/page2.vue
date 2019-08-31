@@ -2,38 +2,26 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-08-27 01:10:53
- * @LastEditTime: 2019-08-31 16:18:27
+ * @LastEditTime: 2019-08-31 21:48:53
  * @LastEditors: Please set LastEditors
  -->
 <template>
   <div class="">
-    <mapDrag @drag="dragMap"></mapDrag>
   </div>
 </template>
 
 <script>
-import mapDrag from "@/components/mapDrag";
 export default {
   name: "PageSecond",
-  components: { mapDrag },
+  components: {},
   data() {
     return {};
   },
   methods: {
-    dragMap(data) {
-      this.dragData = {
-        lng: data.position.lng,
-        lat: data.position.lat,
-        address: data.address,
-        nearestJunction: data.nearestJunction,
-        nearestRoad: data.nearestRoad,
-        nearestPOI: data.nearestPOI
-      };
-    }
   },
   created() {
-    global.currentPath.data = [2]
-  },
+    global.currentPath.data = [2];
+  }
 };
 </script>
 

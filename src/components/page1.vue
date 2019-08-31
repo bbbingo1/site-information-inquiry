@@ -2,31 +2,26 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-08-27 01:10:53
- * @LastEditTime: 2019-08-31 16:18:21
+ * @LastEditTime: 2019-08-31 21:52:13
  * @LastEditors: Please set LastEditors
  -->
 <template>
   <div class="">
-    <mapDrag @drag="dragMap" lat="22.574405" lng="114.095388"></mapDrag>
+    <mapInquiry lat="22.574405" lng="114.095388"></mapInquiry>
     <ul class="info">
-      <li><span>经度：</span>{{ dragData.lng }}</li>
-      <li><span>纬度：</span>{{ dragData.lat }}</li>
-      <li><span>地址：</span>{{ dragData.address }}</li>
-      <li><span>最近的路口：</span>{{ dragData.nearestJunction }}</li>
-      <li><span>最近的路：</span>{{ dragData.nearestRoad }}</li>
-      <li><span>最近的POI：</span>{{ dragData.nearestPOI }}</li>
     </ul>
+    <div class="clr"></div>
   </div>
 </template>
 
 <script>
-import mapDrag from "@/components/mapDrag";
+import mapInquiry from "@/components/mapInquiry";
 export default {
   name: "PageFirst",
-  components: { mapDrag },
+  components: { mapInquiry },
   data() {
     return {
-      dragData: {
+      InquiryData: {
         lng: null,
         lat: null,
         address: null,
@@ -37,8 +32,8 @@ export default {
     };
   },
   methods: {
-    dragMap(data) {
-      this.dragData = {
+    InquiryMap(data) {
+      this.InquiryData = {
         lng: data.position.lng,
         lat: data.position.lat,
         address: data.address,
@@ -56,11 +51,11 @@ export default {
 
 <style scoped>
 .info {
-  margin: 0;
+  margin: 20px 0 0 10px;
   padding: 0;
   list-style: none;
   line-height: 30px;
-  margin-left: 620px;
+  float: left;
 }
 .info span {
   display: block;

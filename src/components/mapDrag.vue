@@ -8,7 +8,7 @@
       drag: 拖放完成事件
  * @Author: your name
  * @Date: 2019-08-29 13:38:27
- * @LastEditTime: 2019-08-31 16:25:11
+ * @LastEditTime: 2019-08-31 21:42:28
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -16,9 +16,9 @@
     <div class="search" v-if="placeSearch">
       <input type="text" placeholder="请输入关键字" v-model="searchKey">
       <button type="button" @click="handleSearch">搜索</button>
-      <div id="js-result" v-show="searchKey" class="result"></div>
     </div>
     <div id="js-container" class="map">正在加载数据 ...</div>
+    <div id="js-result" v-show="searchKey" class="result"></div>
   </div>
 </template>
 
@@ -126,6 +126,8 @@ export default {
   height: 720px;
   margin-bottom: 20px;
   float: left;
+  margin: 20px;
+  border: 2px solid #ccc;
 }
 .m-map::after {
   content: "";
@@ -161,5 +163,8 @@ export default {
   max-height: 300px;
   overflow: auto;
   margin-top: 10px;
+}
+.clr {
+  clear: both;
 }
 </style>
