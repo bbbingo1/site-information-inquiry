@@ -2,23 +2,23 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-08-27 01:10:53
- * @LastEditTime: 2019-08-31 21:52:13
+ * @LastEditTime: 2019-09-01 14:32:00
  * @LastEditors: Please set LastEditors
  -->
 <template>
   <div class="">
+
+    <inquirySearch></inquirySearch>
     <mapInquiry lat="22.574405" lng="114.095388"></mapInquiry>
-    <ul class="info">
-    </ul>
-    <div class="clr"></div>
   </div>
 </template>
 
 <script>
 import mapInquiry from "@/components/mapInquiry";
+import inquirySearch from "@/components/inquirySearch";
 export default {
   name: "PageFirst",
-  components: { mapInquiry },
+  components: { mapInquiry, inquirySearch },
   data() {
     return {
       InquiryData: {
@@ -55,7 +55,6 @@ export default {
   padding: 0;
   list-style: none;
   line-height: 30px;
-  float: left;
 }
 .info span {
   display: block;

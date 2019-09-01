@@ -6,7 +6,7 @@
       lng: 经度
  * @Author: your name
  * @Date: 2019-08-29 13:38:27
- * @LastEditTime: 2019-08-31 23:52:10
+ * @LastEditTime: 2019-09-01 17:03:17
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -32,6 +32,7 @@ export default {
     return {
       AMapUI: null,
       AMap: null
+      // map:null,
     };
   },
   watch: {},
@@ -41,19 +42,20 @@ export default {
       // 加载MarkerList，loadUI的路径参数为模块名中 'ui/' 之后的部分
       let AMapUI = (this.AMapUI = window.AMapUI);
       let AMap = (this.AMap = window.AMap);
+      let map;
 
-      let mapConfig = {
-        zoom: 16,
-        cityName: MapCityName
-      };
-      if (this.lat && this.lng) {
-        mapConfig.center = [this.lng, this.lat];
-      }
-      let map = new AMap.Map("js-container", mapConfig);
+      AMapUI.loadUI(["misc/PoiPicker"], PoiPicker => {
+        let mapConfig = {
+          zoom: 16,
+          cityName: MapCityName
+        };
+        if (this.lat && this.lng) {
+          mapConfig.center = [this.lng, this.lat];
+        }
+        map = new AMap.Map("js-container", mapConfig);
 
-      AMapUI.loadUI(["misc/PoiPicker"], function(PoiPicker) {
         var poiPicker = new PoiPicker({
-          //city:'深圳',
+          city: "深圳",
           input: "pickerInput",
           placeSearchOptions: {
             map: map,
@@ -103,6 +105,7 @@ export default {
 
         poiPicker.onCityReady(function() {
           poiPicker.suggest("美食");
+          poiPicker.searchByKeyword("酒店");
         });
       }
 
@@ -211,7 +214,6 @@ export default {
   width: 100%;
   height: 720px;
   margin-bottom: 20px;
-  float: left;
 }
 .m-map::after {
   content: "";
@@ -229,7 +231,7 @@ export default {
   display: inline-block;
   width: 100%;
   height: 100%;
-  border: 2px solid #ccc;
+  border: 1px solid #ebebeb;
 }
 .m-map .search {
   position: absolute;
@@ -257,7 +259,7 @@ export default {
   width: 100%;
   height: 100%;
   overflow: auto;
-  border: 2px solid #ccc;
+  border: 1px solid #ebebeb;
 }
 .clr {
   clear: both;
