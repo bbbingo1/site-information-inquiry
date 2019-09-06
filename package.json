@@ -1,0 +1,39 @@
+{
+  "name": "admin-front",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "dev-build": "vue-cli-service build --mode development",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint",
+    "mock": "node mock/server.js",
+    "mockdev": "npm run mock & vue-cli-service serve"
+  },
+  "dependencies": {
+    "axios": "^0.19.0",
+    "core-js": "^2.6.5",
+    "element-ui": "^2.9.1",
+    "font-awesome": "^4.7.0",
+    "normalize.css": "^8.0.1",
+    "nprogress": "^0.2.0",
+    "vue": "^2.6.10",
+    "vue-router": "^3.0.3",
+    "vuex": "^3.0.1"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^3.8.0",
+    "@vue/cli-plugin-eslint": "^3.8.0",
+    "@vue/cli-service": "^3.8.0",
+    "babel-eslint": "^10.0.1",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "eslint": "^5.16.0",
+    "eslint-plugin-vue": "^5.0.0",
+    "express": "^4.17.1",
+    "node-sass": "^4.12.0",
+    "sass-loader": "^8.0.0",
+    "underscore": "^1.9.1",
+    "vue-template-compiler": "^2.6.10"
+  }
+}

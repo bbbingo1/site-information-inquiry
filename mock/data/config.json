@@ -1,0 +1,51 @@
+{
+  "indexSearchFields": {
+    "code": "S_OK",
+    "radioOpts": [
+      {
+        "label": "酒店"
+      },
+      {
+        "label": "美食"
+      },
+      {
+        "label": "旅馆"
+      },
+      {
+        "label": "游泳"
+      }
+    ],
+    "inputOpts1": [
+      {
+        "label": "沙滩数量",
+        "value": "0"
+      },
+      {
+        "label": "宴会厅面积",
+        "value": "0"
+      },
+      {
+        "label": "双床房数量",
+        "value": "0"
+      },
+      {
+        "label": "大床房数量",
+        "value": "0"
+      }
+    ],
+    "inputOpts2": [
+      {
+        "label": "卡路里上限",
+        "value": "0"
+      },
+      {
+        "label": "好评度",
+        "value": "0"
+      },
+      {
+        "label": "月销量",
+        "value": "0"
+      }
+    ]
+  }
+}
