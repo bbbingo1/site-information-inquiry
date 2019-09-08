@@ -1,3 +1,10 @@
+/*
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-09-06 21:25:37
+ * @LastEditTime: 2019-09-06 21:25:37
+ * @LastEditors: your name
+ */
 import router from './router'
 
 import NProgress from 'nprogress' // Progress 进度条

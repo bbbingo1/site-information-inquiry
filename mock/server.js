@@ -1,3 +1,10 @@
+/*
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-09-06 21:25:37
+ * @LastEditTime: 2019-09-09 02:25:07
+ * @LastEditors: Please set LastEditors
+ */
 'use strict'
 const express = require('express');
 const cors = require('cors')
@@ -69,7 +76,11 @@ app.get('/config/indexSearchFields', (req, res) => {
     console.log(data)
     res.jsonp(data)
 })
-
+// 返回场地搜索信息
+app.post('/config/indexSearchResults', (req, res) => {
+    let data = base['indexSearchResults']
+    res.jsonp(data)
+})
 // 绑定 9090 端口开启
 app.listen(9090, function () {
     console.log('mock server is running in 9090!');

@@ -1,7 +1,15 @@
+/*
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-09-06 21:25:37
+ * @LastEditTime: 2019-09-09 03:19:55
+ * @LastEditors: Please set LastEditors
+ */
 import Vue from 'vue'
 import Vuex from 'vuex'
-import {logout, getInfo} from "./api/user";
-
+import { logout, getInfo } from "./api/user";
+import { getIndexSearchResults } from './api/config';
+import eventBus from "@/utils/eventBus.js";
 
 Vue.use(Vuex)
 
@@ -17,7 +25,8 @@ export default new Vuex.Store({
         levelList: [{
             title: '首页',
             name: "index"
-        }]
+        }],
+        indexSearchResults: null
     },
     mutations: {
         setSid(state, sid) {
@@ -34,6 +43,10 @@ export default new Vuex.Store({
         },
         setLevelList(state, levelList) {
             state.levelList = levelList
+        },
+        setIndexSearchResults(state, messages) {
+            state.indexSearchResults = messages
+            eventBus.$emit("refreshData");
         }
     },
     getters: {
@@ -49,19 +62,22 @@ export default new Vuex.Store({
         userInfo: state => {
             return state.userInfo
         },
-        levelList : state => {
+        levelList: state => {
             return state.levelList
+        },
+        indexSearchResults: state => {
+            return state.indexSearchResults
         }
 
     },
     actions: {
-        setSid({commit}, sid) {
+        setSid({ commit }, sid) {
             commit('setSid', sid)
         },
-        login({commit}) {
+        login({ commit }) {
             commit('setLoggedIn', true)
         },
-        logout({commit}) {
+        logout({ commit }) {
             return new Promise((resolve, reject) => {
                 logout().then(() => {
                     commit('setSid', '')
@@ -76,7 +92,7 @@ export default new Vuex.Store({
                 })
             })
         },
-        getInfo({commit}) {
+        getInfo({ commit }) {
             return new Promise((resolve, reject) => {
                 getInfo().then(response => {
                     commit('setUserInfo', response.data)
@@ -86,11 +102,21 @@ export default new Vuex.Store({
                 })
             })
         },
-        toggleSidear({commit}) {
+        toggleSidear({ commit }) {
             commit('toggleSidear')
         },
-        setLevelInfo({commit}, leveInfo) {
+        setLevelInfo({ commit }, leveInfo) {
             commit("setLevelList", leveInfo)
         },
+        setIndexSearchResults({ commit }, datas) {
+            return new Promise((resolve, reject) => {
+                getIndexSearchResults(datas).then(res => {
+                    commit('setIndexSearchResults', res.messages)
+                    resolve()
+                }).catch(error => {
+                    reject(error)
+                })
+            })
+        }
     }
 })
