@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-06 21:25:37
- * @LastEditTime: 2019-09-09 03:15:07
+ * @LastEditTime: 2019-09-09 13:44:26
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -181,9 +181,7 @@ export default {
           //markerList.render([]);
 
           // //绘制数据
-          eventBus.$on("refreshData", function(datas) {
-            console.log(123);
-            console.log(that.msg);
+          eventBus.$on("refreshData", function() {
             if (that.msg) {
               markerList.render(that.msg);
             }

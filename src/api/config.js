@@ -17,7 +17,7 @@ export function getIndexSearchResults(datas) {
   return request({
     // TODO 获取主页搜索结果
     url: '/config/indexSearchResults',
-    method: 'post',
+    method: 'get',
     data: {
       datas,
     }

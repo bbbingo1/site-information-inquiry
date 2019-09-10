@@ -77,7 +77,7 @@ app.get('/config/indexSearchFields', (req, res) => {
     res.jsonp(data)
 })
 // 返回场地搜索信息
-app.post('/config/indexSearchResults', (req, res) => {
+app.get('/config/indexSearchResults', (req, res) => {
     let data = base['indexSearchResults']
     res.jsonp(data)
 })
