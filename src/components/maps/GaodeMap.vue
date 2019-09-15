@@ -20,6 +20,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 import remoteLoad from "@/utils/remoteLoad.js";
 import eventBus from "@/utils/eventBus.js";
 const MapKey = "da5fae8f5e10d86564f1c0803232c577";
