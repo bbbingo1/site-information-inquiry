@@ -55,7 +55,7 @@
 </template>
 
 <script>
-import { getIndexSearchFields } from "@/api/config";
+import { dynamicSiteFields } from "@/api/config";
 // import eventBus from "@/utils/eventBus.js";
 
 export default {
@@ -105,7 +105,7 @@ export default {
     }
   },
   created() {
-    getIndexSearchFields()
+    dynamicSiteFields()
       .then(response => {
         console.log(response);
         this.radioOpts = response.radioOpts;

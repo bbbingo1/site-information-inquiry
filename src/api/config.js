@@ -6,10 +6,10 @@
  * @LastEditors: Please set LastEditors
  */
 import request from '../utils/request'
-export function getIndexSearchFields() {
+export function dynamicSiteFields() {
   return request({
     // TODO 获取主页场地类型查询字段
-    url: '/config/indexSearchFields',
+    url: '/config/dynamicSiteFields',
     method: 'get',
   })
 }
