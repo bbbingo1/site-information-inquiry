@@ -71,8 +71,8 @@ app.post('/user/logout', (req, res) => {
     })
 })
 // 获取首页查询表单字段
-app.get('/config/indexSearchFields', (req, res) => {
-    let data = base['indexSearchFields']
+app.get('/config/dynamicSiteFields', (req, res) => {
+    let data = base['dynamicSiteFields']
     console.log(data)
     res.jsonp(data)
 })
