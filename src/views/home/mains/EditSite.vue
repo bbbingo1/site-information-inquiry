@@ -1,10 +1,7 @@
 <template>
     <div class="edit-site">
         <dynamic-field-resources-form>
-            <div slot="button" class="button-bar">
-                <el-button type="primary">修改</el-button>
-                <el-button>返回</el-button>
-            </div>
+            <el-button slot="eventButton" type="warning" icon="fa fa-pencil-square-o" @click="edit" class="fa-button">修改</el-button>
         </dynamic-field-resources-form>
     </div>
 </template>

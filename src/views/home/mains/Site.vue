@@ -1,17 +1,14 @@
 <template>
     <div class="site-list">
-        <dynamic-field-resources-form>
-            <div slot="button" class="button-bar">
-                <el-button type="primary" icon="el-icon-search">搜索</el-button>
-                <el-button icon="el-icon-refresh">重置</el-button>
-            </div>
+        <dynamic-field-resources-form :formData="searchFormData">
+            <el-button slot="eventButton" type="primary" icon="el-icon-search" @click="search()">搜索</el-button>
         </dynamic-field-resources-form>
         <div class="tool-bar">
-            <el-button type="primary" icon="fa fa-plus" @click="add">添加</el-button>
-            <el-button type="warning" icon="fa fa-pencil-square-o" @click="edit">修改</el-button>
-            <el-button type="danger" icon="fa fa-times" @click="remove">删除</el-button>
-            <el-button type="success" icon="fa fa-upload" @click="upload">批量上传</el-button>
-            <el-button type="info" icon="fa fa-download" @click="download">下载模板</el-button>
+            <el-button type="primary" icon="fa fa-plus" @click="add" class="fa-button">添加</el-button>
+            <el-button type="warning" icon="fa fa-pencil-square-o" @click="edit" class="fa-button">修改</el-button>
+            <el-button type="danger" icon="fa fa-times" @click="remove" class="fa-button">删除</el-button>
+            <el-button type="success" icon="fa fa-upload" @click="upload" class="fa-button">批量上传</el-button>
+            <el-button type="info" icon="fa fa-download" @click="download" class="fa-button">下载模板</el-button>
         </div>
         <div class="list">
             <el-table
@@ -48,11 +45,13 @@
             <el-pagination
                     @size-change="handleSizeChange"
                     @current-change="handleCurrentChange"
-                    :current-page="currentPage4"
-                    :page-sizes="[100, 200, 300, 400]"
-                    :page-size="100"
+                    @prev-click="handlePrevClick"
+                    @next-click="handleNextClick"
+                    :current-page="pageNum"
+                    :page-sizes="[20, 50, 100]"
+                    :page-size="20"
                     layout="total, sizes, prev, pager, next, jumper"
-                    :total="400">
+                    :total="total">
             </el-pagination>
         </div>
     </div>
@@ -70,58 +69,34 @@
         },
         data() {
             return {
-                tableData: [{
-                    name: '深圳北站',
-                    type: '酒店',
-                    address: 'xxxxxxxxxxxx',
-                    info: 'xxxxxxxxxxxxxxxxx',
-                },{
-                    name: '深圳北站',
-                    type: '酒店',
-                    address: 'xxxxxxxxxxxx',
-                    info: 'xxxxxxxxxxxxxxxxx',
-                },{
-                    name: '深圳北站',
-                    type: '酒店',
-                    address: 'xxxxxxxxxxxx',
-                    info: 'xxxxxxxxxxxxxxxxx',
-                },{
-                    name: '深圳北站',
-                    type: '酒店',
-                    address: 'xxxxxxxxxxxx',
-                    info: 'xxxxxxxxxxxxxxxxx',
-                },{
-                    name: '深圳北站',
-                    type: '酒店',
-                    address: 'xxxxxxxxxxxx',
-                    info: 'xxxxxxxxxxxxxxxxx',
-                },{
-                    name: '深圳北站',
-                    type: '酒店',
-                    address: 'xxxxxxxxxxxx',
-                    info: 'xxxxxxxxxxxxxxxxx',
-                },{
-                    name: '深圳北站',
-                    type: '酒店',
-                    address: 'xxxxxxxxxxxx',
-                    info: 'xxxxxxxxxxxxxxxxx',
-                }],
+                searchFormData: {},
+                pageNum:1,
+                total:0,
+                tableData: [],
                 multipleSelection: []
             }
         },
 
         methods: {
-            toggleSelection(rows) {
-                if (rows) {
-                    rows.forEach(row => {
-                        this.$refs.multipleTable.toggleRowSelection(row);
-                    });
-                } else {
-                    this.$refs.multipleTable.clearSelection();
-                }
+            search() {
+                console.log(this.searchFormData)
             },
             handleSelectionChange(val) {
-                this.multipleSelection = val;
+                this.multipleSelection = val
+            },
+            handleSizeChange(val) {
+                console.log(val)
+            },
+            handleCurrentChange(val) {
+                console.log(val)
+            },
+            handlePrevClick(val) {
+                console.log(val)
+                this.pageNum--
+            },
+            handleNextClick(val) {
+                console.log(val)
+                this.pageNum++
             },
             add() {
                 this.$router.push('/addSite')
