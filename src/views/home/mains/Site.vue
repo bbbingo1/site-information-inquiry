@@ -1,6 +1,6 @@
 <template>
     <div class="site-list">
-        <dynamic-field-resources-form :formData="searchFormData">
+        <dynamic-field-resources-form>
             <el-button slot="eventButton" type="primary" icon="el-icon-search" @click="search()">搜索</el-button>
         </dynamic-field-resources-form>
         <div class="tool-bar">
