@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-06 21:25:37
- * @LastEditTime: 2019-09-09 13:44:26
+ * @LastEditTime: 2019-09-21 14:18:09
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -25,7 +25,11 @@ import remoteLoad from "@/utils/remoteLoad.js";
 const MapKey = "da5fae8f5e10d86564f1c0803232c577";
 const MapCityName = "深圳";
 export default {
-  props: ["lat", "lng"],
+  props: {
+    lat: String,
+    lng: String,
+    listMsg: Object
+  },
   data() {
     return {
       AMapUI: null,
