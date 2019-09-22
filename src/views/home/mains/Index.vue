@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-06 21:25:37
- * @LastEditTime: 2019-09-22 15:21:52
+ * @LastEditTime: 2019-09-22 17:13:35
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -10,7 +10,9 @@
     <dynamic-field-resources-form ref="searchForm">
       <el-button slot="eventButton" type="primary" icon="el-icon-search" @click="search()">搜索</el-button>
     </dynamic-field-resources-form>
-    <gaode-map lat="22.574405" lng="114.095388"></gaode-map>
+    <gaode-map lat="22.574405" lng="114.095388" :listMsg="currentListContent">
+      <el-pagination background slot="pagination" :hide-on-single-page="true" layout="prev, pager, next" :current-page="currentPage" :page-size="pageSize" :total="total" @current-change="search"></el-pagination>
+    </gaode-map>
   </div>
 </template>
 
@@ -31,19 +33,31 @@ export default {
   },
   data() {
     return {
-      searchFormData: {}
+      searchFormData: {},
+      currentListContent: [],
+      currentPage: 1,
+      pageSize: 8,
+      total: 0
     };
   },
   methods: {
-    search() {
+    search(val = 0) {
+      if (val) {
+        this.currentPage = val;
+      }
       this.searchFormData = serializer(
         this.$refs.searchForm.$refs.dynamicFiledForm.$el,
         { hash: true }
       );
-      console.log(this.searchFormData);
-      getIndexSearchResults(this.searchFormData).then(res =>
-        console.log(res.messages)
-      );
+      getIndexSearchResults(
+        this.currentPage,
+        this.pageSize,
+        this.searchFormData
+      ).then(res => {
+        console.log(res.data);
+        this.currentListContent = res.data.result;
+        this.total = res.data.total;
+      });
     }
   }
 };

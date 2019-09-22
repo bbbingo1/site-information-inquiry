@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-06 21:25:37
- * @LastEditTime: 2019-09-21 14:18:09
+ * @LastEditTime: 2019-09-22 16:51:43
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -11,10 +11,11 @@
       <input type="text" id="pickerInput" placeholder="请输入关键字">
     </div> -->
     <div class="m-container">
-      <div id="js-container" class="map">正在加载数据 ...</div>
+      <div id="js-container" class="map" @mousewheel.stop>正在加载地图 ...</div>
     </div>
     <div class="m-result">
-      <div id="js-result" class="result"></div>
+      <div id="js-result" class="result" @mousewheel.stop></div>
+      <slot name="pagination"></slot>
     </div>
   </div>
 </template>
@@ -28,12 +29,13 @@ export default {
   props: {
     lat: String,
     lng: String,
-    listMsg: Object
+    listMsg: Array
   },
   data() {
     return {
       AMapUI: null,
-      AMap: null
+      AMap: null,
+      listenObj: { tag: true } //仿照watch利用对象访问器属性监听listMsg数据变更
       // map:null,
     };
   },
@@ -42,7 +44,11 @@ export default {
       return this.$store.getters.indexSearchResults;
     }
   },
-  watch: {},
+  watch: {
+    listMsg(val) {
+      this.listenObj.tag = this.listenObj.tag ? false : true;
+    }
+  },
   methods: {
     // 初始化地图
     initMap() {
@@ -181,13 +187,27 @@ export default {
             record
           ) {});
 
-          //清除数据
-          //markerList.render([]);
+          // //清除数据
+          // markerList.render([]);
+
+          // //绘制数据
+          markerList.render(that.listMsg);
+
+          Object.defineProperty(that.listenObj, "tag", {
+            get() {
+              return this._tag;
+            },
+            set(val) {
+              this._tag = val;
+              markerList.render(that.listMsg);
+              return val;
+            }
+          });
 
           // //绘制数据
           // eventBus.$on("refreshData", function() {
-          //   if (that.msg) {
-          //     markerList.render(that.msg);
+          //   if (that.listMsg) {
+          //     markerList.render(that.listMsg);
           //   }
           // });
         }
@@ -216,7 +236,7 @@ export default {
   min-height: 300px;
   position: relative;
   width: 100%;
-  height: 500px;
+  height: 720px;
   margin-bottom: 20px;
 
   .m-container {
@@ -261,9 +281,10 @@ export default {
   .result {
     display: inline-block;
     width: 100%;
-    height: 100%;
+    height: 92%;
     overflow: auto;
     border: 1px solid #ebebeb;
+    margin-bottom: 2%
   }
 }
 
