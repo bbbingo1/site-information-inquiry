@@ -7,7 +7,7 @@
  -->
 <template>
     <div class="formbox">
-        <el-form v-model="formData">
+        <el-form ref="dynamicFiledForm">
             <div class="fields">
                 <!-- 类型 -->
                 <div style="margin:10px 5px">
@@ -21,7 +21,7 @@
                     <div class="inputItem" v-for="(item,index) in dynamicSiteFields.inputOpts ||''" :key="index">
                         <div class="inputLabel">{{item.label}}</div>
                         <div style="width:65%;display: inline-block;">
-                            <el-input size="small" v-model="item.value" :name="item.field" placeholder=""></el-input>
+                            <el-input size="small" v-model="item.value" :name="item.field"></el-input>
                         </div>
                     </div>
                 </div>
@@ -64,9 +64,6 @@
 
     export default {
         name: "DynamicFieldResourcesForm",
-        props: {
-            formData: Object,
-        },
         data() {
             return {
                 dynamicSiteFields: {},
@@ -111,6 +108,7 @@
 </script>
 
 <style lang="scss" scoped>
+
     @mixin labels {
         display: inline-block;
         width: 30%;
@@ -128,29 +126,23 @@
         border: 1px solid #ebebeb;
         width: 97%;
         height: auto;
-
         .fields {
             // border: 1px solid #e8e8e8ea;
             margin: 2px 5px;
             padding: 5px;
-
             .inputItem {
-                display: inline-block;
                 margin: 10px 2px;
-
+                width: 400px;
                 .inputLabel {
                     @include labels;
                 }
             }
-
             .radioItem {
                 margin: 10px 2px;
-
                 .radioLabel {
                     @include labels;
                 }
             }
-
             .checkboxItem {
                 margin: 10px 2px;
 
