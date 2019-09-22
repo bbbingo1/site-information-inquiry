@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-06 21:25:37
- * @LastEditTime: 2019-09-09 02:25:07
+ * @LastEditTime: 2019-09-22 17:16:56
  * @LastEditors: Please set LastEditors
  */
 'use strict'
@@ -50,7 +50,7 @@ app.post('/user/login', (req, res) => {
 })
 
 // 刷新验证码
-app.post('/user/login/reloadImageCaptcha',(req, res) => {
+app.post('/user/login/reloadImageCaptcha', (req, res) => {
     let data = base['login_reload_image_Captcha']
     res.jsonp(data)
 })
@@ -73,12 +73,22 @@ app.post('/user/logout', (req, res) => {
 // 获取首页查询表单字段
 app.get('/config/dynamicSiteFields', (req, res) => {
     let data = base['dynamicSiteFields']
-    console.log(data)
     res.jsonp(data)
 })
 // 返回场地搜索信息
-app.get('/config/indexSearchResults', (req, res) => {
-    let data = base['indexSearchResults']
+app.post('/config/indexSearchResults', (req, res) => {
+    let data = JSON.parse(JSON.stringify(base['indexSearchResults']))
+    //测试分页
+    if (req.body.pageNum == 1) {
+        res.jsonp(data)
+    } else {
+        data.data.result.sort(() =>Math.random() - 0.5);
+        res.jsonp(data)
+    }
+})
+// 单独创建一个场地信息
+app.post('/config/singleSiteImformation', (req, res) => {
+    let data = base['singleSiteImformation']
     res.jsonp(data)
 })
 // 绑定 9090 端口开启

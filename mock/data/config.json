@@ -147,43 +147,155 @@
   },
   "indexSearchResults": {
     "code": "S_OK",
-    "messages": [
-      {
-        "pic": "http://store.is.autonavi.com/showpic/6758bc1520cb4f61b67ac6b1413cf26a?operate=merge&w=160&h=150&position=5",
-        "price": {
-          "label": "价格",
-          "value": "￥200/晚"
+    "data": {
+      "total": 59,
+      "pageNum": 1,
+      "result": [
+        {
+          "pic": "http://store.is.autonavi.com/showpic/6758bc1520cb4f61b67ac6b1413cf26a?operate=merge&w=160&h=150&position=5",
+          "price": {
+            "label": "价格",
+            "value": "￥200/晚"
+          },
+          "name": "凯宾斯基酒店",
+          "address": {
+            "label": "地址",
+            "value": "综合商业南区A口500米处"
+          },
+          "type": "酒店",
+          "id": "B0FFFFN5HZ",
+          "location": {
+            "lng": "39.989449",
+            "lat": "116.481565"
+          }
         },
-        "name": "凯宾斯基酒店",
-        "address": {
-          "label": "地址",
-          "value": "综合商业南区A口500米处"
+        {
+          "pic": "http://store.is.autonavi.com/showpic/d829b8ed2bb74b3e56ceac85b4b66aa5?operate=merge&w=160&h=150&position=5",
+          "price": {
+            "label": "价格",
+            "value": "￥100/晚"
+          },
+          "name": "XXX酒店",
+          "address": {
+            "label": "地址",
+            "value": "综合商业南区B口1500米处"
+          },
+          "type": "酒店",
+          "id": "B000A7RYT5",
+          "location": {
+            "lng": "39.989934",
+            "lat": "116.484401"
+          }
         },
-        "type": "酒店",
-        "id": "B0FFFFN5HZ",
-        "location": {
-          "lng": "39.989449",
-          "lat": "116.481565"
+        {
+          "pic": "http://store.is.autonavi.com/showpic/6758bc1520cb4f61b67ac6b1413cf26a?operate=merge&w=160&h=150&position=5",
+          "price": {
+            "label": "价格",
+            "value": "￥200/晚"
+          },
+          "name": "凯宾斯基酒店",
+          "address": {
+            "label": "地址",
+            "value": "综合商业南区A口500米处"
+          },
+          "type": "酒店",
+          "id": "B1FFFFN5HZ",
+          "location": {
+            "lng": "39.923449",
+            "lat": "116.481565"
+          }
+        },
+        {
+          "pic": "http://store.is.autonavi.com/showpic/6758bc1520cb4f61b67ac6b1413cf26a?operate=merge&w=160&h=150&position=5",
+          "price": {
+            "label": "价格",
+            "value": "￥200/晚"
+          },
+          "name": "凯宾斯基酒店",
+          "address": {
+            "label": "地址",
+            "value": "综合商业南区A口500米处"
+          },
+          "type": "酒店",
+          "id": "B2FFFFN5HZ",
+          "location": {
+            "lng": "39.94549",
+            "lat": "116.451565"
+          }
+        },
+        {
+          "pic": "http://store.is.autonavi.com/showpic/6758bc1520cb4f61b67ac6b1413cf26a?operate=merge&w=160&h=150&position=5",
+          "price": {
+            "label": "价格",
+            "value": "￥200/晚"
+          },
+          "name": "凯宾斯基酒店",
+          "address": {
+            "label": "地址",
+            "value": "综合商业南区A口500米处"
+          },
+          "type": "酒店",
+          "id": "B4FFFFN5HZ",
+          "location": {
+            "lng": "39.986749",
+            "lat": "116.4654565"
+          }
+        },
+        {
+          "pic": "http://store.is.autonavi.com/showpic/6758bc1520cb4f61b67ac6b1413cf26a?operate=merge&w=160&h=150&position=5",
+          "price": {
+            "label": "价格",
+            "value": "￥200/晚"
+          },
+          "name": "凯宾斯基酒店",
+          "address": {
+            "label": "地址",
+            "value": "综合商业南区A口500米处"
+          },
+          "type": "酒店",
+          "id": "B8FFFFN5HZ",
+          "location": {
+            "lng": "40.459449",
+            "lat": "116.481565"
+          }
+        },
+        {
+          "pic": "http://store.is.autonavi.com/showpic/6758bc1520cb4f61b67ac6b1413cf26a?operate=merge&w=160&h=150&position=5",
+          "price": {
+            "label": "价格",
+            "value": "￥200/晚"
+          },
+          "name": "凯宾斯基酒店",
+          "address": {
+            "label": "地址",
+            "value": "综合商业南区A口500米处"
+          },
+          "type": "酒店",
+          "id": "B42FFFN5HZ",
+          "location": {
+            "lng": "39.123349",
+            "lat": "116.3154565"
+          }
+        },
+        {
+          "pic": "http://store.is.autonavi.com/showpic/6758bc1520cb4f61b67ac6b1413cf26a?operate=merge&w=160&h=150&position=5",
+          "price": {
+            "label": "价格",
+            "value": "￥200/晚"
+          },
+          "name": "凯宾斯基酒店",
+          "address": {
+            "label": "地址",
+            "value": "综合商业南区A口500米处"
+          },
+          "type": "酒店",
+          "id": "B8F43FN5HZ",
+          "location": {
+            "lng": "39.452249",
+            "lat": "116.998565"
+          }
         }
-      },
-      {
-        "pic": "http://store.is.autonavi.com/showpic/d829b8ed2bb74b3e56ceac85b4b66aa5?operate=merge&w=160&h=150&position=5",
-        "price": {
-          "label": "价格",
-          "value": "￥100/晚"
-        },
-        "name": "XXX酒店",
-        "address": {
-          "label": "地址",
-          "value": "综合商业南区B口1500米处"
-        },
-        "type": "酒店",
-        "id": "B000A7RYT5",
-        "location": {
-          "lng": "39.989934",
-          "lat": "116.484401"
-        }
-      }
-    ]
+      ]
+    }
   }
 }
