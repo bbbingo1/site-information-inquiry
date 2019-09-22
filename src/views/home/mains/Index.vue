@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-06 21:25:37
- * @LastEditTime: 2019-09-08 16:00:23
+ * @LastEditTime: 2019-09-22 15:21:52
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -18,6 +18,7 @@
 import DynamicFieldResourcesForm from "@/components/forms/DynamicFieldResourcesForm.vue";
 import GaodeMap from "@/components/maps/GaodeMap.vue";
 import serializer from "form-serialize";
+import { getIndexSearchResults } from "@/api/config.js";
 
 export default {
   name: "Index",
@@ -30,13 +31,20 @@ export default {
   },
   data() {
     return {
-        searchFormData: {},
+      searchFormData: {}
     };
   },
   methods: {
     search() {
-        console.log(serializer(this.$refs.searchForm.$refs.dynamicFiledForm.$el, { hash: true }))
-    },
+      this.searchFormData = serializer(
+        this.$refs.searchForm.$refs.dynamicFiledForm.$el,
+        { hash: true }
+      );
+      console.log(this.searchFormData);
+      getIndexSearchResults(this.searchFormData).then(res =>
+        console.log(res.messages)
+      );
+    }
   }
 };
 </script>
