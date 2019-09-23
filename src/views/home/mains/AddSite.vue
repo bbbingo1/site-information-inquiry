@@ -1,10 +1,7 @@
 <template>
     <div class="add-site">
         <dynamic-field-resources-form>
-            <div slot="button" class="button-bar">
-                <el-button type="primary">确认</el-button>
-                <el-button>返回</el-button>
-            </div>
+            <el-button  slot="eventButton" type="primary" icon="fa fa-plus" @click="add" class="fa-button">添加</el-button>
         </dynamic-field-resources-form>
     </div>
 </template>

@@ -22,7 +22,6 @@
 <script>
 /* eslint-disable */
 import remoteLoad from "@/utils/remoteLoad.js";
-import eventBus from "@/utils/eventBus.js";
 const MapKey = "da5fae8f5e10d86564f1c0803232c577";
 const MapCityName = "深圳";
 export default {
@@ -182,11 +181,11 @@ export default {
           //markerList.render([]);
 
           // //绘制数据
-          eventBus.$on("refreshData", function() {
-            if (that.msg) {
-              markerList.render(that.msg);
-            }
-          });
+          // eventBus.$on("refreshData", function() {
+          //   if (that.msg) {
+          //     markerList.render(that.msg);
+          //   }
+          // });
         }
       );
     }

@@ -4,6 +4,7 @@
     "radioOpts": [
       {
         "label": "酒店",
+        "value": "0",
         "options": {
           "inputOpts": [
             {
@@ -113,6 +114,7 @@
       },
       {
         "label": "美食",
+        "value": "1",
         "options": {
           "inputOpts": [
             {
@@ -134,10 +136,12 @@
         }
       },
       {
-        "label": "旅馆"
+        "label": "旅馆",
+        "value": "2"
       },
       {
-        "label": "游泳"
+        "label": "游泳",
+        "value": "3"
       }
     ]
   },

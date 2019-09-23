@@ -7,7 +7,8 @@
  -->
 <template>
   <div class="index">
-    <dynamic-field-resources-form>
+    <dynamic-field-resources-form ref="searchForm">
+      <el-button slot="eventButton" type="primary" icon="el-icon-search" @click="search()">搜索</el-button>
     </dynamic-field-resources-form>
     <gaode-map lat="22.574405" lng="114.095388"></gaode-map>
   </div>
@@ -16,6 +17,8 @@
 <script>
 import DynamicFieldResourcesForm from "@/components/forms/DynamicFieldResourcesForm.vue";
 import GaodeMap from "@/components/maps/GaodeMap.vue";
+import serializer from "form-serialize";
+
 export default {
   name: "Index",
   components: {
@@ -26,9 +29,15 @@ export default {
     this.$store.dispatch("setLevelInfo", [{ title: "首页", name: "index" }]);
   },
   data() {
-    return {};
+    return {
+        searchFormData: {},
+    };
   },
-  methods: {}
+  methods: {
+    search() {
+        console.log(serializer(this.$refs.searchForm.$refs.dynamicFiledForm.$el, { hash: true }))
+    },
+  }
 };
 </script>
 

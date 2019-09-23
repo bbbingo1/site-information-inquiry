@@ -8,8 +8,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import { logout, getInfo } from "./api/user";
-import { getIndexSearchResults } from './api/config';
-import eventBus from "@/utils/eventBus.js";
 
 Vue.use(Vuex)
 
@@ -26,7 +24,6 @@ export default new Vuex.Store({
             title: '首页',
             name: "index"
         }],
-        indexSearchResults: null
     },
     mutations: {
         setSid(state, sid) {
@@ -44,10 +41,6 @@ export default new Vuex.Store({
         setLevelList(state, levelList) {
             state.levelList = levelList
         },
-        setIndexSearchResults(state, messages) {
-            state.indexSearchResults = messages
-            eventBus.$emit("refreshData");
-        }
     },
     getters: {
         sid: state => {
@@ -65,10 +58,6 @@ export default new Vuex.Store({
         levelList: state => {
             return state.levelList
         },
-        indexSearchResults: state => {
-            return state.indexSearchResults
-        }
-
     },
     actions: {
         setSid({ commit }, sid) {
@@ -108,15 +97,5 @@ export default new Vuex.Store({
         setLevelInfo({ commit }, leveInfo) {
             commit("setLevelList", leveInfo)
         },
-        setIndexSearchResults({ commit }, datas) {
-            return new Promise((resolve, reject) => {
-                getIndexSearchResults(datas).then(res => {
-                    commit('setIndexSearchResults', res.messages)
-                    resolve()
-                }).catch(error => {
-                    reject(error)
-                })
-            })
-        }
     }
 })
