@@ -25,7 +25,7 @@ files.forEach((file) => {
 // mock server must be use cors
 app.use(cors())
 // parser json data
-app.use(bodyParser.json({ type: 'application/json' }))
+app.use(bodyParser.json({type: 'application/json'}))
 
 app.use('/static', express.static(path.join(__dirname, 'public')))
 
@@ -76,15 +76,32 @@ app.get('/config/dynamicSiteFields', (req, res) => {
     res.jsonp(data)
 })
 // 返回场地搜索信息
-app.post('/config/indexSearchResults', (req, res) => {
-    let data = JSON.parse(JSON.stringify(base['indexSearchResults']))
-    //测试分页
-    if (req.body.pageNum == 1) {
-        res.jsonp(data)
-    } else {
-        data.data.result.sort(() =>Math.random() - 0.5);
-        res.jsonp(data)
+app.post('/site', (req, res) => {
+    console.log(req.body)
+    let action = req.body.action
+    let data = JSON.parse(JSON.stringify(base['site'][action]))
+    console.log(data)
+    if (action === 'siteList') {
+        //测试分页
+        if (req.body.pageNum == 1) {
+            res.jsonp(data)
+        } else {
+            data.data.result.sort(() => Math.random() - 0.5);
+            res.jsonp(data)
+        }
     }
+})
+
+app.get('/site/:id', (req, res) => {
+    let id = req.params.id
+    let data = {
+        code: 'S_OK',
+        data: JSON.parse(JSON.stringify(base['site']['siteList'])).data.result.find(siteInfo => {
+            return siteInfo.id === id
+        })
+    }
+    console.log(data)
+    res.jsonp(data)
 })
 // 单独创建一个场地信息
 app.post('/config/singleSiteImformation', (req, res) => {

@@ -1,6 +1,6 @@
 <template>
     <div class="site-list">
-        <dynamic-field-resources-form>
+        <dynamic-field-resources-form ref="searchForm">
             <el-button slot="eventButton" type="primary" icon="el-icon-search" @click="search()">搜索</el-button>
         </dynamic-field-resources-form>
         <div class="tool-bar">
@@ -22,31 +22,29 @@
                         width="55">
                 </el-table-column>
                 <el-table-column
-                        label="场地名称"
-                        width="200">
-                    <template slot-scope="scope">{{ scope.row.name }}</template>
-                </el-table-column>
-                <el-table-column
-                        prop="type"
-                        label="类型"
+                        label="ID"
+                        prop="id"
                         width="120">
                 </el-table-column>
                 <el-table-column
-                        prop="address"
-                        label="地址"
-                        show-overflow-tooltip>
+                        prop="name"
+                        label="场地名称"
+                        width="200">
                 </el-table-column>
                 <el-table-column
-                        prop="info"
+                        prop="type"
+                        label="场地类型"
+                        width="120">
+                </el-table-column>
+                <el-table-column
                         label="详细信息"
                         show-overflow-tooltip>
+                    <template slot-scope="scope">{{ scope.row }}</template>
                 </el-table-column>
             </el-table>
             <el-pagination
                     @size-change="handleSizeChange"
-                    @current-change="handleCurrentChange"
-                    @prev-click="handlePrevClick"
-                    @next-click="handleNextClick"
+                    @current-change="search"
                     :current-page="pageNum"
                     :page-sizes="[20, 50, 100]"
                     :page-size="20"
@@ -59,6 +57,26 @@
 
 <script>
     import DynamicFieldResourcesForm from '@/components/forms/DynamicFieldResourcesForm.vue';
+    import serializer from "form-serialize";
+    import {siteList} from '@/api/site.js'
+
+    function searchData(instance, pageNum = 1) {
+        instance.pageNum = pageNum;
+        instance.searchFormData = serializer(
+            instance.$refs.searchForm.$refs.dynamicFiledForm.$el,
+            {hash: true}
+        );
+        siteList(
+            instance.pageNum,
+            instance.pageSize,
+            instance.searchFormData
+        ).then(res => {
+            console.log(res.data);
+            instance.tableData = res.data.result;
+            instance.total = res.data.total;
+        }).catch(error => console.log(error));
+    }
+
     export default {
         name: "Site",
         components: {
@@ -76,35 +94,42 @@
                 multipleSelection: []
             }
         },
-
+        mounted() {
+            this.$refs.searchForm.$refs.dynamicFiledForm.$el.reset()
+            searchData(this, 1)
+        },
         methods: {
-            search() {
-                console.log(this.searchFormData)
+            search(val = 0) {
+                searchData(this, val)
             },
             handleSelectionChange(val) {
                 this.multipleSelection = val
             },
             handleSizeChange(val) {
-                console.log(val)
-            },
-            handleCurrentChange(val) {
-                console.log(val)
-            },
-            handlePrevClick(val) {
-                console.log(val)
-                this.pageNum--
-            },
-            handleNextClick(val) {
-                console.log(val)
-                this.pageNum++
+                this.pageSize = val
+                searchData(this,1)
             },
             add() {
                 this.$router.push('/addSite')
             },
             edit() {
-                this.$router.push('/editSite')
+                if (this.multipleSelection.length == 0 || this.multipleSelection.length > 1) {
+                    this.$message({
+                        type: 'warning',
+                        message: '请选择一条数据进行修改!'
+                    });
+                    return
+                }
+                this.$router.push('/editSite/' + this.multipleSelection[0].id)
             },
             remove() {
+                if (this.multipleSelection.length == 0) {
+                    this.$message({
+                        type: 'warning',
+                        message: '请至少选择一条数据!'
+                    });
+                    return
+                }
                 this.$confirm('此操作将永久删除该记录, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',

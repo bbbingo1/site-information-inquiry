@@ -13,13 +13,3 @@ export function dynamicSiteFields() {
     method: 'get',
   })
 }
-export function getIndexSearchResults(pageNum,pageSize,data) {
-  return request({
-    // TODO 获取主页搜索结果
-    url: '/config/indexSearchResults',
-    method: 'post',
-    data: {
-      pageNum,pageSize,data,
-    }
-  })
-}

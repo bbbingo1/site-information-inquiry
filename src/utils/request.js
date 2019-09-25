@@ -11,14 +11,12 @@ const service = axios.create({
     baseURL: process.env.NODE_ENV !== 'production' ? process.env.VUE_APP_API_BASE_URL : `${location.protocol}//${location.hostname}${window.location.port ? ':' + window.location.port : ''}/admin/api`,
     // 请求超时时间
     timeout: 3000,
-    // 自定义 Header
-    headers: { 'X-MALL-APPID' : process.env.VUE_APP_APPID}
 })
 
 // request 拦截器
 service.interceptors.request.use(config => {
     // Cookie 需在 HttpOnly 保护下的,所以 js 无法获取,每次请求会自动通过浏览器请求携带
-    config.headers['X-MALL-NONCE'] = new Date().getTime(); //减少伪造请求的可能
+    config.headers['X-NONCE'] = new Date().getTime(); //减少伪造请求的可能
     return config
 }, error => {
     console.log(error)  // for debug

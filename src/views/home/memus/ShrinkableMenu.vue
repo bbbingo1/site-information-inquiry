@@ -16,8 +16,8 @@
           <i class="el-icon-setting"></i>
           <span slot="title">用户设置</span>
         </template>
-        <el-menu-item index="/operateLog">用户操作日志</el-menu-item>
-        <el-menu-item index="/user">用户信息</el-menu-item>
+<!--        <el-menu-item index="/operateLog">用户操作日志</el-menu-item>-->
+<!--        <el-menu-item index="/user">用户信息</el-menu-item>-->
         <el-menu-item index="/logout">退出系统</el-menu-item>
       </el-submenu>
     </el-menu>

@@ -8,7 +8,11 @@
 <template>
   <div class="formbox">
     <el-form ref="dynamicFiledForm">
+
       <div class="fields">
+        <slot name="otherFileds">
+
+        </slot>
         <!-- 类型 -->
         <div style="margin:10px 5px">
           <el-radio-group v-model="siteType" name="siteType">
@@ -16,45 +20,36 @@
             </el-radio>
           </el-radio-group>
         </div>
-        <!-- 文本框 -->
-        <el-form-item label="文本项">
-          <div>
-            <div class="inputItem" v-for="(item,index) in dynamicSiteFields.inputOpts ||''" :key="index">
-              <div class="inputLabel">{{item.label}}</div>
-              <div style="width:65%;display: inline-block;">
-                <el-input size="small" v-model="item.value" :name="item.field"></el-input>
+        <div class="el-input-group">
+          <div class="inputItem" v-for="(item,index) in dynamicSiteFields.inputOpts ||''" :key="index">
+            <div class="inputLabel">{{item.label}}</div>
+            <div style="display: inline-block;">
+              <el-input size="small" v-model="item.value" :name="item.field"></el-input>
+            </div>
+          </div>
+        </div>
+        <div class="el-input-group">
+          <div class="radioItem" v-for="(item,index) in dynamicSiteFields.radioOpts ||''" :key="index">
+            <div class="radioLabel">{{item.label}}</div>
+            <div class="team-choices radio-choices single-row">
+              <div v-for="(i,index) in item.radios" :key="index" style="display: inline-block;">
+                <input type="radio" :name="item.field" :id='item.field + i.label' :value="i.label" />
+                <label :for='item.field + i.label'><span>{{i.label}}</span></label>
               </div>
             </div>
           </div>
-        </el-form-item>
-        <!-- 单选框 -->
-        <el-form-item label="单选项">
-          <div>
-            <div class="radioItem" v-for="(item,index) in dynamicSiteFields.radioOpts ||''" :key="index">
-              <div class="radioLabel">{{item.label}}</div>
-              <div style="width:65%" class="team-choices radio-choices">
-                <div v-for="(i,index) in item.radios" :key="index" style="display: inline-block;">
-                  <input type="radio" :name="item.field" :id='item.field + i.label' :value="i.label" />
-                  <label :for='item.field + i.label'><span>{{i.label}}</span></label>
-                </div>
+        </div>
+        <div class="el-input-group">
+          <div class="checkboxItem" v-for="(item,index) in dynamicSiteFields.checkboxOpts ||''" :key="index">
+            <div class="checkboxLabel">{{item.label}}</div>
+            <div class="team-choices radio-choices single-row">
+              <div v-for="(i,index) in item.checkboxs" :key="index" style="display: inline-block;">
+                <input type="checkbox" :name="item.field" :id='item.field + i.label' :value="i.label" />
+                <label :for='item.field + i.label'><span>{{i.label}}</span></label>
               </div>
             </div>
           </div>
-        </el-form-item>
-        <!-- 多选框 -->
-        <el-form-item label="多选项">
-          <div>
-            <div class="checkboxItem" v-for="(item,index) in dynamicSiteFields.checkboxOpts ||''" :key="index">
-              <div class="checkboxLabel">{{item.label}}</div>
-              <div style="width:65%" class="team-choices radio-choices">
-                <div v-for="(i,index) in item.checkboxs" :key="index" style="display: inline-block;">
-                  <input type="checkbox" :name="item.field" :id='item.field + i.label' :value="i.label" />
-                  <label :for='item.field + i.label'><span>{{i.label}}</span></label>
-                </div>
-              </div>
-            </div>
-          </div>
-        </el-form-item>
+        </div>
       </div>
       <!-- 搜索框 -->
       <div class="button-bar">
@@ -119,10 +114,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+@mixin items {
+  margin: 10px 15px;
+  display: block;
+  float: left;
+  width: auto;
+}
+
 @mixin labels {
-  // display: inline-block;
-  width: 30%;
-  max-width: 100px;
+  display: inline-block;
+  width: 120px;
   font-size: 14px;
   color: #606266;
   white-space: nowrap;
@@ -130,6 +132,9 @@ export default {
   text-overflow: ellipsis;
   font-weight: 400;
   clear: both;
+  &:after {
+    content: ":";
+  }
 }
 
 .formbox {
@@ -142,25 +147,29 @@ export default {
     margin: 2px 5px;
     padding: 5px;
     .inputItem {
-      margin: 10px 15px;
-      width: 400px;
+      @include items;
       .inputLabel {
         @include labels;
       }
     }
     .radioItem {
-      margin: 10px 15px;
+      @include items;
       .radioLabel {
         @include labels;
       }
     }
     .checkboxItem {
-      margin: 10px 15px;
+      @include items;
       .checkboxLabel {
         @include labels;
       }
     }
   }
+}
+
+
+.single-row {
+  display: inline;
 }
 
 .button-bar {

@@ -35,11 +35,12 @@ export default new Router({
                 },
                 component: () => import('./views/home/mains/AddSite.vue'),
             }, {
-                path: '/editSite',
+                path: '/editSite/:id',
                 name: 'editSite',
                 meta: {
                     title: '编辑场地信息',
                 },
+                props: true,
                 component: () => import('./views/home/mains/EditSite.vue'),
             }, {
                 path: '/user',

@@ -6,61 +6,69 @@
  * @LastEditors: Please set LastEditors
  -->
 <template>
-  <div class="index">
-    <dynamic-field-resources-form ref="searchForm">
-      <el-button slot="eventButton" type="primary" icon="el-icon-search" @click="search()">搜索</el-button>
-    </dynamic-field-resources-form>
-    <gaode-map lat="22.574405" lng="114.095388" :listMsg="currentListContent">
-      <el-pagination background slot="pagination" :hide-on-single-page="true" layout="prev, pager, next" :current-page="currentPage" :page-size="pageSize" :total="total" @current-change="search"></el-pagination>
-    </gaode-map>
-  </div>
+    <div class="index">
+        <dynamic-field-resources-form ref="searchForm">
+            <el-button slot="eventButton" type="primary" icon="el-icon-search" @click="search()">搜索</el-button>
+        </dynamic-field-resources-form>
+        <gaode-map lat="22.574405" lng="114.095388" :listMsg="currentListContent">
+            <el-pagination background slot="pagination" :hide-on-single-page="true" layout="prev, pager, next"
+                           :current-page="pageNum" :page-size="pageSize" :total="total"
+                           @current-change="search"></el-pagination>
+        </gaode-map>
+    </div>
 </template>
 
 <script>
-import DynamicFieldResourcesForm from "@/components/forms/DynamicFieldResourcesForm.vue";
-import GaodeMap from "@/components/maps/GaodeMap.vue";
-import serializer from "form-serialize";
-import { getIndexSearchResults } from "@/api/config.js";
+    import DynamicFieldResourcesForm from "@/components/forms/DynamicFieldResourcesForm.vue";
+    import GaodeMap from "@/components/maps/GaodeMap.vue";
+    import serializer from "form-serialize";
+    import {siteList} from "@/api/site.js";
 
-export default {
-  name: "Index",
-  components: {
-    DynamicFieldResourcesForm,
-    GaodeMap
-  },
-  beforeCreate: function() {
-    this.$store.dispatch("setLevelInfo", [{ title: "首页", name: "index" }]);
-  },
-  data() {
-    return {
-      searchFormData: {},
-      currentListContent: [],
-      currentPage: 1,
-      pageSize: 8,
-      total: 0
-    };
-  },
-  methods: {
-    search(val = 0) {
-      if (val) {
-        this.currentPage = val;
-      }
-      this.searchFormData = serializer(
-        this.$refs.searchForm.$refs.dynamicFiledForm.$el,
-        { hash: true }
-      );
-      getIndexSearchResults(
-        this.currentPage,
-        this.pageSize,
-        this.searchFormData
-      ).then(res => {
-        console.log(res.data);
-        this.currentListContent = res.data.result;
-        this.total = res.data.total;
-      });
+    function searchData(instance, pageNum = 1) {
+        instance.pageNum = pageNum;
+        instance.searchFormData = serializer(
+            instance.$refs.searchForm.$refs.dynamicFiledForm.$el,
+            {hash: true}
+        );
+        siteList(
+            instance.pageNum,
+            instance.pageSize,
+            instance.searchFormData
+        ).then(res => {
+            console.log(res.data);
+            instance.currentListContent = res.data.result;
+            instance.total = res.data.total;
+        });
     }
-  }
-};
+
+    export default {
+        name: "Index",
+        components: {
+            DynamicFieldResourcesForm,
+            GaodeMap
+        },
+        beforeCreate: function () {
+            this.$store.dispatch("setLevelInfo", [{title: "首页", name: "index"}])
+        },
+        data() {
+            return {
+                searchFormData: {},
+                currentListContent: [],
+                pageNum: 1,
+                pageSize: 8,
+                total: 0
+            };
+        },
+        mounted() {
+            this.$refs.searchForm.$refs.dynamicFiledForm.$el.reset()
+            searchData(this, 1)
+        },
+        methods: {
+            search(val) {
+                searchData(this, val)
+            }
+        },
+    };
 </script>
 
 <style lang="scss" scoped>
