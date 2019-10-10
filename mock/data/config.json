@@ -72,7 +72,7 @@
               ]
             },
             {
-              "field": "field6",
+              "field": "field7",
               "label": "单选3",
               "value": "",
               "radios": [
@@ -85,7 +85,7 @@
               ]
             },
             {
-              "field": "field6",
+              "field": "field8",
               "label": "单选4",
               "value": "",
               "radios": [
@@ -106,7 +106,7 @@
           ],
           "checkboxOpts": [
             {
-              "field": "field7",
+              "field": "field9",
               "label": "多选1",
               "value": [
                 "选项1"
@@ -124,7 +124,7 @@
               ]
             },
             {
-              "field": "field8",
+              "field": "field10",
               "label": "多选2",
               "value": [
                 "选项1"
@@ -142,7 +142,7 @@
               ]
             },
             {
-              "field": "field8",
+              "field": "field11",
               "label": "多选3",
               "value": [
                 "选项1"
