@@ -7,25 +7,41 @@
  */
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { logout, getInfo } from "./api/user";
+import {logout, getInfo} from "./api/user"
+import {dynamicSiteFields} from "@/api/config"
+
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
+        baseURL: '',
+        isCollapse: false,
+        levelList: [{
+            title: '首页',
+            name: "index"
+        }],
+        dynamicSiteFields: {},
         sid: '',
         loggedIn: false,
         userInfo: {
             username: '',
             userImage: '',
         },
-        isCollapse: false,
-        levelList: [{
-            title: '首页',
-            name: "index"
-        }],
     },
     mutations: {
+        setBaseUrl(state, baseUrl) {
+            state.baseURL = baseUrl
+        },
+        toggleSidear(state) {
+            state.isCollapse = !state.isCollapse
+        },
+        setLevelList(state, levelList) {
+            state.levelList = levelList
+        },
+        setDynamicSiteFields(state, dynamicSiteFields) {
+            state.dynamicSiteFields = dynamicSiteFields
+        },
         setSid(state, sid) {
             state.sid = sid
         },
@@ -35,38 +51,54 @@ export default new Vuex.Store({
         setUserInfo(state, userInfo) {
             state.userInfo = userInfo
         },
-        toggleSidear(state) {
-            state.isCollapse = !state.isCollapse
-        },
-        setLevelList(state, levelList) {
-            state.levelList = levelList
-        },
     },
     getters: {
+        baseUrl: state => {
+            return state.baseURL
+        },
+        isCollapse: state => {
+            return state.isCollapse
+        },
+        levelList: state => {
+            return state.levelList
+        },
+        dynamicSiteFields: state => {
+            return state.dynamicSiteFields
+        },
         sid: state => {
             return state.sid
         },
         loggedIn: status => {
             return status.loggedIn
         },
-        isCollapse: state => {
-            return state.isCollapse
-        },
         userInfo: state => {
             return state.userInfo
         },
-        levelList: state => {
-            return state.levelList
-        },
     },
     actions: {
-        setSid({ commit }, sid) {
+        setBaseUrl({commit}, baseUrl) {
+            commit("setBaseUrl", baseUrl)
+        },
+        toggleSidear({commit}) {
+            commit('toggleSidear')
+        },
+        setLevelInfo({commit}, leveInfo) {
+            commit("setLevelList", leveInfo)
+        },
+        initDynamicSiteFields({commit}) {
+            dynamicSiteFields()
+                .then(response => {
+                    commit("setDynamicSiteFields", response.data)
+                })
+                .catch(error => console.log(error));
+        },
+        setSid({commit}, sid) {
             commit('setSid', sid)
         },
-        login({ commit }) {
+        login({commit}) {
             commit('setLoggedIn', true)
         },
-        logout({ commit }) {
+        logout({commit}) {
             return new Promise((resolve, reject) => {
                 logout().then(() => {
                     commit('setSid', '')
@@ -81,7 +113,7 @@ export default new Vuex.Store({
                 })
             })
         },
-        getInfo({ commit }) {
+        getInfo({commit}) {
             return new Promise((resolve, reject) => {
                 getInfo().then(response => {
                     commit('setUserInfo', response.data)
@@ -90,12 +122,6 @@ export default new Vuex.Store({
                     reject(error)
                 })
             })
-        },
-        toggleSidear({ commit }) {
-            commit('toggleSidear')
-        },
-        setLevelInfo({ commit }, leveInfo) {
-            commit("setLevelList", leveInfo)
         },
     }
 })

@@ -1,8 +1,11 @@
 <template>
     <div class="edit-site">
-        <dynamic-field-resources-form ref="siteForm">
+        <dynamic-field-resources-form :siteType="siteInfo.type" :dynamicFiledValues="siteInfo.dynamicFiledValues"
+                                      ref="siteForm">
             <address-info-fields slot="otherFileds" :siteInfo="siteInfo"></address-info-fields>
-            <el-button slot="eventButton" type="warning" icon="fa fa-pencil-square-o" @click="edit" class="fa-button">修改</el-button>
+            <el-button slot="eventButton" type="warning" icon="fa fa-pencil-square-o" @click="edit" class="fa-button">
+                修改
+            </el-button>
         </dynamic-field-resources-form>
     </div>
 </template>
@@ -10,7 +13,8 @@
 <script>
     import DynamicFieldResourcesForm from '@/components/forms/DynamicFieldResourcesForm.vue'
     import AddressInfoFields from '@/components/forms/AddressInfoFields.vue'
-    import {getSiteInfo} from '@/api/site.js'
+    import serializer from "form-serialize";
+    import {getSiteInfo, updateSite} from '@/api/site.js'
 
     export default {
         name: "EditSite",
@@ -20,18 +24,21 @@
             AddressInfoFields
         },
         data() {
-          return {
-              siteInfo: {
-                  id:'',
-                  name:'',
-                  pic:'',
-                  location: {
-                      lng:'',
-                      lat:'',
-                  },
-                  otherMsg:''
-              }
-          }
+            return {
+                siteInfo: {
+                    id: '',
+                    name: '',
+                    pic: '',
+                    location: {
+                        lng: '',
+                        lat: '',
+                    },
+                    otherMsg: ''
+                }
+            }
+        },
+        created() {
+
         },
         mounted() {
             this.$refs.siteForm.$refs.dynamicFiledForm.$el.reset()
@@ -50,7 +57,19 @@
         },
         methods: {
             edit() {
-                this.$refs.siteForm.$refs.dynamicFiledForm
+                let data = serializer(
+                    this.$refs.siteForm.$refs.dynamicFiledForm.$el,
+                    {hash: true}
+                );
+                updateSite(data).then(() => {
+                    this.$message({
+                        message: '修改成功!',
+                        type: 'success',
+                        duration: 1000,
+                    });
+                    this.$refs.siteForm.$refs.dynamicFiledForm.$el.reset()
+                    this.$router.push('/site')
+                }).catch(error => console.log(error))
             }
         }
     }

@@ -73,7 +73,7 @@
                 center>
             <el-form>
                 <label>
-                        账号已绑定手机号:
+                    账号已绑定手机号:
                     <el-input name="phoneName"></el-input>
                 </label>
             </el-form>
@@ -207,9 +207,7 @@
                             this.$store.dispatch('setSid', sid ? sid : response.data.sid)
                             if (response.code === 'S_OK') { //登陆成功
                                 this.$store.dispatch('login') //切换登陆状态
-                                this.$router.push({
-                                    name: 'home',
-                                })
+                                this.$router.push('/index')
                             } else if (response.code === 'FA_NEED_IMAGE_CAPTCHA') { //需要图片验证码
                                 this.needImageCaptcha = true
                                 this.imageCaptchaURL = response.data.image
@@ -256,12 +254,14 @@
         z-index: 999;
         width: 360px;
         border-top: 10px solid #304156;
+
         .login-image-captcha-form {
             position: relative;
             display: inline-block;
             top: -20px;
             height: 50px;
             vertical-align: middle;
+
             .login-image-captcha {
                 position: relative;
                 display: inline-block;
@@ -270,6 +270,7 @@
                 width: 195px;
                 height: 42px;
                 cursor: pointer;
+
                 img {
                     border-color: #DCDFE6;
                     border-style: solid;
@@ -277,6 +278,7 @@
                     width: 145px;
                     height: 40px;
                 }
+
                 .refresh-captcha-button {
                     position: relative;
                     top: -12px;
@@ -289,9 +291,11 @@
                     height: 38px;
                     text-align: center;
                     color: #DCDFE6;
+
                     &:hover {
                         background-color: #E8F0FE;
                     }
+
                     i {
                         line-height: 40px;
                         font-size: 20px;

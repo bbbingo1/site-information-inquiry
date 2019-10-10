@@ -7,7 +7,7 @@
  -->
 <template>
     <div class="index">
-        <dynamic-field-resources-form ref="searchForm">
+        <dynamic-field-resources-form :siteType="siteType" :dynamicFiledValues="dynamicFiledValues" ref="searchForm">
             <el-button slot="eventButton" type="primary" icon="el-icon-search" @click="search()">搜索</el-button>
         </dynamic-field-resources-form>
         <gaode-map lat="22.574405" lng="114.095388" :listMsg="currentListContent">
@@ -35,7 +35,6 @@
             instance.pageSize,
             instance.searchFormData
         ).then(res => {
-            console.log(res.data);
             instance.currentListContent = res.data.result;
             instance.total = res.data.total;
         });
@@ -52,12 +51,18 @@
         },
         data() {
             return {
+                dynamicFiledValues: null,
                 searchFormData: {},
                 currentListContent: [],
                 pageNum: 1,
                 pageSize: 8,
                 total: 0
             };
+        },
+        computed: {
+            siteType() {
+                return this.$store.state.dynamicSiteFields[0].label
+            }
         },
         mounted() {
             this.$refs.searchForm.$refs.dynamicFiledForm.$el.reset()

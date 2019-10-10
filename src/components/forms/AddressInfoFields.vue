@@ -1,5 +1,5 @@
 <template>
-    <div >
+    <div>
         <div class="address-info-fields">
             <div class="item">
                 <div class="label">唯一ID</div>
@@ -10,14 +10,16 @@
             <div class="item">
                 <div class="label">场地名称</div>
                 <div class="filed">
-                    <el-input  v-model="siteInfo.name" size="small" name="name" style="width: 350px"></el-input>
+                    <el-input v-model="siteInfo.name" size="small" name="name" style="width: 350px"></el-input>
                 </div>
             </div>
             <div class="item">
                 <div class="label">经纬度</div>
                 <div class="filed">
-                    <el-input size="small" v-model="siteInfo.location.lng" name="lng" style="width: 160px" placeholder="经度"></el-input>
-                    <el-input size="small" v-model="siteInfo.location.lat" name="lat" style="width: 160px; margin-left: 30px;" placeholder="纬度"></el-input>
+                    <el-input size="small" v-model="siteInfo.location.lng" name="lng" style="width: 160px"
+                              placeholder="经度"></el-input>
+                    <el-input size="small" v-model="siteInfo.location.lat" name="lat"
+                              style="width: 160px; margin-left: 30px;" placeholder="纬度"></el-input>
                 </div>
             </div>
             <div class="item">
@@ -48,7 +50,7 @@
     export default {
         name: "AddressInfoFields",
         props: {
-            siteInfo : Object
+            siteInfo: Object
         }
     }
 </script>
@@ -57,9 +59,11 @@
     .address-info-fields {
         margin: 20px 15px;
         border-bottom: 2px solid #ebebeb;
+
         .item {
             margin: 10px 0px;
             width: 100%;
+
             .label {
                 display: inline-block;
                 width: 120px;
@@ -70,10 +74,12 @@
                 text-overflow: ellipsis;
                 font-weight: 400;
                 clear: both;
+
                 &:after {
                     content: ":";
                 }
             }
+
             .filed {
                 display: inline-block;
             }

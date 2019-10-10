@@ -1,38 +1,43 @@
 {
   "dynamicSiteFields": {
     "code": "S_OK",
-    "radioOpts": [
+    "data": [
       {
         "label": "酒店",
-        "value": "0",
         "options": {
           "inputOpts": [
             {
+              "model": "siteInfo.beachNum",
               "field": "beachNum",
               "label": "沙滩数量",
               "value": "0"
             },
             {
+              "model": "siteInfo.ballroomArea",
               "field": "ballroomArea",
               "label": "宴会厅面积",
               "value": "0"
             },
             {
+              "model": "siteInfo.field1",
               "field": "field1",
               "label": "双床房数量",
               "value": "0"
             },
             {
+              "model": "siteInfo.field2",
               "field": "field2",
               "label": "大床房数量",
               "value": "0"
             },
             {
+              "model": "siteInfo.field3",
               "field": "field3",
               "label": "经济房数量",
               "value": "0"
             },
             {
+              "model": "siteInfo.field4",
               "field": "field4",
               "label": "最小平米",
               "value": "0"
@@ -40,6 +45,7 @@
           ],
           "radioOpts": [
             {
+              "model": "siteInfo.field5",
               "field": "field5",
               "label": "单选1",
               "value": "",
@@ -56,6 +62,7 @@
               ]
             },
             {
+              "model": "siteInfo.field6",
               "field": "field6",
               "label": "单选2",
               "value": "",
@@ -70,43 +77,12 @@
                   "label": "选项3"
                 }
               ]
-            },
-            {
-              "field": "field6",
-              "label": "单选3",
-              "value": "",
-              "radios": [
-                {
-                  "label": "选项1"
-                },
-                {
-                  "label": "选项2"
-                }
-              ]
-            },
-            {
-              "field": "field6",
-              "label": "单选4",
-              "value": "",
-              "radios": [
-                {
-                  "label": "选项1"
-                },
-                {
-                  "label": "选项2"
-                },
-                {
-                  "label": "选项3"
-                },
-                {
-                  "label": "选项4"
-                }
-              ]
             }
           ],
           "checkboxOpts": [
             {
-              "field": "field7",
+              "model": "siteInfo.field9",
+              "field": "field9",
               "label": "多选1",
               "value": [
                 "选项1"
@@ -124,7 +100,8 @@
               ]
             },
             {
-              "field": "field8",
+              "model": "siteInfo.field10",
+              "field": "field10",
               "label": "多选2",
               "value": [
                 "选项1"
@@ -142,7 +119,8 @@
               ]
             },
             {
-              "field": "field8",
+              "model": "siteInfo.field11",
+              "field": "field11",
               "label": "多选3",
               "value": [
                 "选项1"
@@ -164,21 +142,23 @@
       },
       {
         "label": "美食",
-        "value": "1",
         "options": {
           "inputOpts": [
             {
-              "field": "field1",
+              "model": "siteInfo.field12",
+              "field": "field12",
               "label": "卡路里上限",
               "value": "0"
             },
             {
-              "field": "field2",
+              "model": "siteInfo.field13",
+              "field": "field13",
               "label": "好评度",
               "value": "0"
             },
             {
-              "field": "field3",
+              "model": "siteInfo.field14",
+              "field": "field14",
               "label": "月销量",
               "value": "0"
             }
@@ -186,12 +166,10 @@
         }
       },
       {
-        "label": "旅馆",
-        "value": "2"
+        "label": "旅馆"
       },
       {
-        "label": "游泳",
-        "value": "3"
+        "label": "游泳"
       }
     ]
   }
