@@ -20,8 +20,8 @@
             "type": "酒店",
             "id": "B0FFFFN5HZ",
             "location": {
-              "lng": "39.989449",
-              "lat": "116.481565"
+              "lat": "39.989449",
+              "lng": "116.481565"
             },
             "dynamicFiledValues": {
               "beachNum": "1",
@@ -62,8 +62,8 @@
             "type": "酒店",
             "id": "B000A7RYT5",
             "location": {
-              "lng": "39.989934",
-              "lat": "116.484401"
+              "lat": "39.989934",
+              "lng": "116.484401"
             },
             "dynamicFiledValues": {
               "beachNum": "1",
@@ -104,8 +104,8 @@
             "type": "酒店",
             "id": "B1FFFFN5HZ",
             "location": {
-              "lng": "39.923449",
-              "lat": "116.481565"
+              "lat": "39.923449",
+              "lng": "116.481565"
             },
             "dynamicFiledValues": {
               "beachNum": "1",
@@ -146,8 +146,8 @@
             "type": "酒店",
             "id": "B2FFFFN5HZ",
             "location": {
-              "lng": "39.94549",
-              "lat": "116.451565"
+              "lat": "39.94549",
+              "lng": "116.451565"
             },
             "dynamicFiledValues": {
               "beachNum": "1",
@@ -188,8 +188,8 @@
             "type": "酒店",
             "id": "B4FFFFN5HZ",
             "location": {
-              "lng": "39.986749",
-              "lat": "116.4654565"
+              "lat": "39.986749",
+              "lng": "116.4654565"
             },
             "dynamicFiledValues": {
               "beachNum": "1",
@@ -230,8 +230,8 @@
             "type": "酒店",
             "id": "B8FFFFN5HZ",
             "location": {
-              "lng": "40.459449",
-              "lat": "116.481565"
+              "lat": "40.459449",
+              "lng": "116.481565"
             },
             "dynamicFiledValues": {
               "beachNum": "1",
@@ -272,8 +272,8 @@
             "type": "酒店",
             "id": "B42FFFN5HZ",
             "location": {
-              "lng": "39.123349",
-              "lat": "116.3154565"
+              "lat": "39.123349",
+              "lng": "116.3154565"
             },
             "dynamicFiledValues": {
               "beachNum": "1",
@@ -314,8 +314,8 @@
             "type": "酒店",
             "id": "B8F43FN5HZ",
             "location": {
-              "lng": "39.452249",
-              "lat": "116.998565"
+              "lat": "39.452249",
+              "lng": "116.998565"
             },
             "dynamicFiledValues": {
               "beachNum": "1",
