@@ -4,7 +4,7 @@
  * @Date: 2019-09-06 21:25:37
 <<<<<<< HEAD
 <<<<<<< HEAD
- * @LastEditTime: 2019-10-15 13:58:22
+ * @LastEditTime: 2019-10-16 00:50:52
 =======
  * @LastEditTime: 2019-10-11 23:06:21
 >>>>>>> 406e4c98191736cd7a7ce999e6329e0f9a17aa2c
@@ -42,6 +42,7 @@
 import remoteLoad from "@/utils/remoteLoad.js";
 import { getTrafficInfo } from "@/api/gaodeMap.js";
 const MapKey = "da5fae8f5e10d86564f1c0803232c577";
+const WebKey = "7edc3121a9685b616129406e5695ba7d";
 const MapCityName = "深圳";
 let map;
 export default {
@@ -326,8 +327,15 @@ export default {
           m2.on("dragging", this.computeDis.bind(this, m1, m2));
         } else if (type == "traffic") {
           let rectangle =
-            Number(this.departureValue.lng)+','+Number(this.departureValue.lat)+';'+Number(this.destinationValue.lng)+','+Number(this.destinationValue.lat);
-          getTrafficInfo(MapKey, rectangle)
+            Number(this.departureValue.lng) +
+            "," +
+            Number(this.departureValue.lat) +
+            ";" +
+            Number(this.destinationValue.lng) +
+            "," +
+            Number(this.destinationValue.lat);
+            // rectangle = '116.351147,39.966309;116.357134,39.968727'
+          getTrafficInfo(WebKey, rectangle)
             .then(response => {
               console.log(response);
             })
