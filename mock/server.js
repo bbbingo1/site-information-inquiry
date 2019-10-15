@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-06 21:25:37
- * @LastEditTime: 2019-09-22 17:16:56
+ * @LastEditTime: 2019-10-16 00:48:53
  * @LastEditors: Please set LastEditors
  */
 'use strict'
@@ -10,6 +10,8 @@ const express = require('express');
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const app = express();
+// const proxy = require('http-proxy-middleware')
+const request = require('request')
 
 // json demo
 const _ = require('underscore')
@@ -25,7 +27,7 @@ files.forEach((file) => {
 // mock server must be use cors
 app.use(cors())
 // parser json data
-app.use(bodyParser.json({type: 'application/json'}))
+app.use(bodyParser.json({ type: 'application/json' }))
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use('/static', express.static(path.join(__dirname, 'public')))
@@ -131,8 +133,8 @@ app.post('/site', (req, res) => {
         }
     } else if (action === 'add' || action === 'update' || action === 'delete') {
         res.jsonp({
-                code:'S_OK'
-            })
+            code: 'S_OK'
+        })
     }
 })
 
@@ -158,8 +160,8 @@ app.get('/site/:id', (req, res) => {
     res.jsonp(data)
 })
 
-app.post('/site/upload',  (req, res) => {
-    res.jsonp({code:'S_OK'})
+app.post('/site/upload', (req, res) => {
+    res.jsonp({ code: 'S_OK' })
 })
 
 // 单独创建一个场地信息
@@ -167,6 +169,17 @@ app.post('/config/singleSiteImformation', (req, res) => {
     let data = base['singleSiteImformation']
     res.jsonp(data)
 })
+
+//高德地图代理服务
+// app.get('/gaode/rectangle', proxy({ target: 'https://restapi.amap.com/v3/traffic/status/rectangle', changeOrigin: true }))
+app.get('/gaode/rectangle', function (req, res) {
+    var rectangle = req.params.rectangle;
+    var key = req.params.key
+    var url = `https://restapi.amap.com/v3/traffic/status/rectangle?rectangle=${rectangle}&key=${key}`;
+    console.log(url)
+    req.pipe(request(url)).pipe(res);
+})
+
 // 绑定 9090 端口开启
 app.listen(9090, function () {
     console.log('mock server is running in 9090!');
