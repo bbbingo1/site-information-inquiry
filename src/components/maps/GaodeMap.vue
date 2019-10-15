@@ -3,7 +3,11 @@
  * @Author: your name
  * @Date: 2019-09-06 21:25:37
 <<<<<<< HEAD
+<<<<<<< HEAD
  * @LastEditTime: 2019-10-15 13:58:22
+=======
+ * @LastEditTime: 2019-10-11 23:06:21
+>>>>>>> 406e4c98191736cd7a7ce999e6329e0f9a17aa2c
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -203,6 +207,7 @@ export default {
               return "<li class='poibox'>" + content + "</li>";
             }
           });
+
           //监听列表/标注选中改变
           markerList.on("selectedChanged", function(event, info) {});
           //监听Marker和ListElement上的点击，详见markerEvents，listElementEvents
@@ -214,6 +219,7 @@ export default {
               lat: record.data.location.lat
             };
           });
+
           // //清除数据
           // markerList.render([]);
           // //绘制数据
@@ -237,6 +243,7 @@ export default {
           // });
         }
       );
+
       //自动补全搜索（目的地）
       AMap.service(["AMap.Autocomplete"], function() {
         var autoOptions = {
@@ -284,6 +291,7 @@ export default {
         });
         //移除之前的标注
         window.map.remove(this.independentMarkerItem.markers);
+
         // 新增两个标注点
         var m1 = new AMap.Marker({
           map: window.map,
@@ -310,6 +318,7 @@ export default {
         //把两个标注记录到data中，便于下次移除
         this.independentMarkerItem.markers.push(m1, m2);
         window.map.setFitView();
+
         if (type == "test") {
           //查询距离
           this.computeDis.call(this, m1, m2);
