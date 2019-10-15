@@ -4,7 +4,7 @@
  * @Date: 2019-09-06 21:25:37
 <<<<<<< HEAD
 <<<<<<< HEAD
- * @LastEditTime: 2019-10-16 00:50:52
+ * @LastEditTime: 2019-10-16 01:11:34
 =======
  * @LastEditTime: 2019-10-11 23:06:21
 >>>>>>> 406e4c98191736cd7a7ce999e6329e0f9a17aa2c
@@ -244,19 +244,21 @@ export default {
           // });
         }
       );
-
-      //自动补全搜索（目的地）
-      AMap.service(["AMap.Autocomplete"], function() {
-        var autoOptions = {
-          // city: "深圳", //城市，默认全国
-          input: "targetInput" //使用联想输入的input的id
-        };
-        let autocomplete = new AMap.Autocomplete(autoOptions);
-        AMap.event.addListener(autocomplete, "select", e => {
-          //搜索目的地
-          that.searchPanel(e.poi.name);
+      if (document.getElementById("targetInput")) {
+        //自动补全搜索（目的地）
+        window.AMap.service(["AMap.Autocomplete"], function() {
+          console.log(document.getElementById("targetInput"));
+          var autoOptions = {
+            // city: "深圳", //城市，默认全国
+            input: "targetInput" //使用联想输入的input的id
+          };
+          let autocomplete = new AMap.Autocomplete(autoOptions);
+          window.AMap.event.addListener(autocomplete, "select", e => {
+            //搜索目的地
+            that.searchPanel(e.poi.name);
+          });
         });
-      });
+      }
     },
     /**
      * @description:选定目的地后执行测量距离及查询交通状况等操作
@@ -334,7 +336,7 @@ export default {
             Number(this.destinationValue.lng) +
             "," +
             Number(this.destinationValue.lat);
-            // rectangle = '116.351147,39.966309;116.357134,39.968727'
+          // rectangle = '116.351147,39.966309;116.357134,39.968727'
           getTrafficInfo(WebKey, rectangle)
             .then(response => {
               console.log(response);
@@ -427,6 +429,22 @@ export default {
       await remoteLoad(`http://webapi.amap.com/maps?v=1.4.15&key=${MapKey}`);
       await remoteLoad("http://webapi.amap.com/ui/1.0/main.js");
       this.initMap();
+    }
+  },
+  mounted() {
+    if (window.AMap.service) {
+      //自动补全搜索（目的地）
+      window.AMap.service(["AMap.Autocomplete"], function() {
+        var autoOptions = {
+          // city: "深圳", //城市，默认全国
+          input: "targetInput" //使用联想输入的input的id
+        };
+        let autocomplete = new AMap.Autocomplete(autoOptions);
+        window.AMap.event.addListener(autocomplete, "select", e => {
+          //搜索目的地
+          that.searchPanel(e.poi.name);
+        });
+      });
     }
   }
 };
