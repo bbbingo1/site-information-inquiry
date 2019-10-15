@@ -13,6 +13,20 @@ export function login(sid, username, password, imageCaptcha) {
     })
 }
 
+export function getQRCode() {
+    return request({
+        url: '/user/QRCode',
+        method: 'get',
+    })
+}
+
+export function checkLoginStatus(sid) {
+    return request({
+        url: '/user/checkLoginStatus?sid=' + sid,
+        method: 'get',
+    })
+}
+
 export function reloadImageCaptcha(sid) {
     return request({
         url: '/user/login/reloadImageCaptcha',

@@ -5,62 +5,77 @@
         </div>
         <el-card class="login-form-layout"
                  :style="{left: loginFormLayoutPositonLeft + 'px', top: loginFormLayoutPositonTop + 'px'}">
-            <el-form autoComplete="on"
-                     :model="loginForm"
-                     :rules="loginRules"
-                     ref="loginForm"
-                     label-position="left">
+
+
+            <!-- 企业微信扫码登陆 begin -->
+
+            <div class="qrcode">
+                <div id="wx_qrcode" style="display: inline-block; text-align: center;margin-top: 20px"></div>
+                <div v-show="!isNeedRefresh" class="">
+                    <p class="sub_title">使用企业微信扫码登录</p>
+                    <p class="sub_desc v-scope" v-if="showPrivacyTips">需要配合手机使用</p><!-- end vIf: showPrivacyTips -->
+                </div>
+            </div>
+
+            <!-- 企业微信扫码登陆 end -->
+            <div style="display: none">
                 <div style="text-align: center">
                     <!-- TODO 后续替换成 LOGO 图片 -->
                     <i class="fa fa-envelope fa-5x" style="width: 56px;height: 56px;color: #304156"></i>
                 </div>
                 <h2 class="login-title"> 后台管理系统</h2>
-                <el-form-item prop="username">
-                    <el-input name="username"
-                              type="text"
-                              prefix-icon="fa fa-user"
-                              v-model="loginForm.username"
-                              autoComplete="on"
-                              placeholder="请输入用户名">
-                    </el-input>
-                </el-form-item>
-                <el-form-item prop="password">
-                    <el-input name="password"
-                              type="password"
-                              prefix-icon="fa fa-key"
-                              @keyup.enter.native="handleLogin"
-                              v-model="loginForm.password"
-                              autoComplete="on"
-                              placeholder="请输入密码"
-                              show-password>
-                    </el-input>
-                </el-form-item>
-                <el-form-item v-if="needImageCaptcha" class="login-image-captcha-form" prop="imageCaptcha">
-                    <el-input name="imageCaptcha"
-                              type="text"
-                              autoComplete="on"
-                              v-model="loginForm.imageCaptcha"
-                              style="width: 120px"
-                              placeholder="图片验证码"
-                              @keyup.enter.native="handleLogin">
-                    </el-input>
-                    <el-tooltip :disabled="isReloadImageCaptcha" effect="dark" content="看不清楚,换一张" placement="bottom">
-                        <div class="login-image-captcha" ref="imageCaptchaDiv"
-                             @click="handleRefreshCaptcha">
-                            <img :src="imageCaptchaURL"/>
-                            <div class="refresh-captcha-button">
-                                <i class="fa fa-refresh" :class="{'fa-pulse': isReloadImageCaptcha}"></i>
+                <el-form autoComplete="on"
+                         :model="loginForm"
+                         :rules="loginRules"
+                         ref="loginForm"
+                         label-position="left">
+                    <el-form-item prop="username">
+                        <el-input name="username"
+                                  type="text"
+                                  prefix-icon="fa fa-user"
+                                  v-model="loginForm.username"
+                                  autoComplete="on"
+                                  placeholder="请输入用户名">
+                        </el-input>
+                    </el-form-item>
+                    <el-form-item prop="password">
+                        <el-input name="password"
+                                  type="password"
+                                  prefix-icon="fa fa-key"
+                                  @keyup.enter.native="handleLogin"
+                                  v-model="loginForm.password"
+                                  autoComplete="on"
+                                  placeholder="请输入密码"
+                                  show-password>
+                        </el-input>
+                    </el-form-item>
+                    <el-form-item v-if="needImageCaptcha" class="login-image-captcha-form" prop="imageCaptcha">
+                        <el-input name="imageCaptcha"
+                                  type="text"
+                                  autoComplete="on"
+                                  v-model="loginForm.imageCaptcha"
+                                  style="width: 120px"
+                                  placeholder="图片验证码"
+                                  @keyup.enter.native="handleLogin">
+                        </el-input>
+                        <el-tooltip :disabled="isReloadImageCaptcha" effect="dark" content="看不清楚,换一张" placement="bottom">
+                            <div class="login-image-captcha" ref="imageCaptchaDiv"
+                                 @click="handleRefreshCaptcha">
+                                <img :src="imageCaptchaURL"/>
+                                <div class="refresh-captcha-button">
+                                    <i class="fa fa-refresh" :class="{'fa-pulse': isReloadImageCaptcha}"></i>
+                                </div>
                             </div>
-                        </div>
-                    </el-tooltip>
-                </el-form-item>
-                <el-form-item style="margin-bottom: 60px">
-                    <el-button style="width: 100%" type="primary" :loading="loading"
-                               @click.native.prevent="handleLogin">
-                        登录
-                    </el-button>
-                </el-form-item>
-            </el-form>
+                        </el-tooltip>
+                    </el-form-item>
+                    <el-form-item style="margin-bottom: 60px">
+                        <el-button style="width: 100%" type="primary" :loading="loading"
+                                   @click.native.prevent="handleLogin">
+                            登录
+                        </el-button>
+                    </el-form-item>
+                </el-form>
+            </div>
         </el-card>
 
 
@@ -110,7 +125,8 @@
 
     import login_center_bg from '@/assets/images/login_center_bg.png'
     import {validUsername} from '@/utils/validate';
-    import {login, reloadImageCaptcha} from "@/api/user";
+    import {login, reloadImageCaptcha, getQRCode, checkLoginStatus} from "@/api/user";
+    import QRCode from 'qrcodejs2'
 
     const refreshCaptcha = app => {
         app.isReloadImageCaptcha = true
@@ -180,6 +196,13 @@
                 loginFormLayoutPositonLeft: (document.documentElement.clientWidth - 360) / 2,
                 loginFormLayoutPositonTop: (document.documentElement.clientHeight - 404) / 2,
                 smsCaptchaDialogTop: (document.documentElement.clientHeight - 400) / 2,
+
+                // 定制企业微信登陆内容
+                isNeedRefresh: false,
+                showPrivacyTips: true,
+                qrLink: '',
+                qrcode: null,
+                timer: '',
             }
         },
         mounted() {
@@ -193,6 +216,42 @@
                     that.smsCaptchaDialogTop = (document.documentElement.clientHeight - 400) / 2
                 })()
             }
+            // 企业微信扫码登陆
+            getQRCode().then(res => {
+                that.qrLink = res.data.qrLink
+                that.$store.dispatch('setSid', res.data.sid)
+            }).catch(error => console.log(error))
+            this.timer = setInterval(() => {
+                checkLoginStatus(that.$store.getters.sid).then(res => {
+                    if (res.code === 'S_OK') {
+                        this.$store.dispatch('login') //切换登陆状态
+                        this.$router.push('/index')
+                    }
+                    if (res.data.qrLink && res.data.sid) {
+                        that.qrLink = res.data.qrLink
+                        that.$store.dispatch('setSid', res.data.sid)
+                    }
+                }).catch(error => console.log(error))
+            }, 2000);
+
+        },
+        beforeDestroy() {
+            clearInterval(this.timer);
+        },
+        watch: {
+            qrLink(val) {
+                if (val.trim() !== '') {
+                    console.log(val)
+                    this.qrcode = new QRCode(document.getElementById("wx_qrcode"),  {
+                        text: val,
+                        width: 200,
+                        height: 200,
+                        colorDark : "#000000",
+                        colorLight : "#ffffff",
+                        correctLevel : QRCode.CorrectLevel.H
+                    });
+                }
+            },
         },
         methods: {
             handleLogin() {
@@ -255,6 +314,35 @@
         width: 360px;
         border-top: 10px solid #304156;
 
+        .qrcode {
+            position: relative;
+            text-align: center;
+            .sub_title {
+                text-align: center;
+                font-size: 20px;
+                color: #353535;
+                margin-bottom: 23px;
+            }
+            .sub_desc {
+                text-align: center;
+                color: #a3a3a3;
+                font-size: 15px;
+                padding: 0 40px;
+                line-height: 1.8;
+            }
+            .refresh_qrcode_mask {
+                & {
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    width: 100%;
+                    height: 270px;
+                }
+                .refresh_tips {
+                    color: #353535;
+                }
+            }
+        }
         .login-image-captcha-form {
             position: relative;
             display: inline-block;

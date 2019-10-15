@@ -26,7 +26,6 @@ service.interceptors.request.use(config => {
 // respone拦截器
 service.interceptors.response.use(
     response => {
-        console.log(response)
         if (response.headers['content-type'].indexOf('application/json') != -1){
             /**
              * code为非200是抛错 可结合自己业务进行修改

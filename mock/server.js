@@ -50,6 +50,39 @@ app.post('/user/login', (req, res) => {
     res.jsonp(data)
 })
 
+app.post('/user/logout', (req, res) => {
+    console.log(req.body)
+    let data = {
+        code: 'S_OK'
+    }
+    res.jsonp(data)
+})
+
+app.get('/user/QRCode', (req, res) => {
+    console.log(req.body)
+    let data = {
+        code: 'S_OK',
+        data: {
+            qrLink: 'http://127.0.0.1:9090/user/checkLoginStatus',
+            sid: Math.random()
+        }
+    }
+    res.jsonp(data)
+})
+
+app.get('/user/checkLoginStatus', (req, res) => {
+    console.log(req.body.sid)
+    let data = {
+        code: 'S_OK',
+        data: {
+            qrLink: 'http://127.0.0.1:9090/user/checkLoginStatus',
+            sid: Math.random()
+        }
+    }
+    res.jsonp(data)
+})
+
+
 // 刷新验证码
 app.post('/user/login/reloadImageCaptcha', (req, res) => {
     let data = base['login_reload_image_Captcha']
