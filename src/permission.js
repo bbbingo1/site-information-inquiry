@@ -18,6 +18,7 @@ router.beforeEach((to, from, next) => {
     window.document.title = to.meta.title || 'WEB ADMIN'
     if (sid && loggedIn) {
         if (to.path === '/login') {
+            router.app.$store.dispatch('logout')
             next()
             NProgress.done() // if current page is dashboard will not trigger	afterEach hook, so manually handle it
             return

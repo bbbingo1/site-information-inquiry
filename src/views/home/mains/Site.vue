@@ -104,7 +104,7 @@
     }
 
     // 创建模板下载链接
-    function downloads(data, name){
+    function downloads(data){
         if(!data){
             return
         }
