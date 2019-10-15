@@ -15,12 +15,17 @@ router.beforeEach((to, from, next) => {
     NProgress.start()
     const sid = router.app.$store.getters.sid
     const loggedIn = router.app.$store.getters.loggedIn
-    window.document.title =  to.meta.title || 'WEB ADMIN'
+    window.document.title = to.meta.title || 'WEB ADMIN'
     if (sid && loggedIn) {
         if (to.path === '/login') {
             next()
             NProgress.done() // if current page is dashboard will not trigger	afterEach hook, so manually handle it
-        } else if (to.path === '/') {
+            return
+        }
+        if (router.app.$children[0].$children[0].$data.pageBodyTop !== undefined) {
+            router.app.$children[0].$children[0].$data.pageBodyTop = -10
+        }
+        if (to.path === '/') {
             next('/index')
         } else {
             next()

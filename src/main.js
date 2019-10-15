@@ -21,8 +21,16 @@ Vue.use(ElementUI, {locale})
 
 Vue.config.productionTip = false
 
+// 初始化请求路径
+store.dispatch('setBaseUrl', process.env.NODE_ENV !== 'production' ? process.env.VUE_APP_API_BASE_URL : `${location.protocol}//${location.hostname}${window.location.port ? ':' + window.location.port : ''}/admin/api`)
+
+// 初始化动态表单
+store.dispatch('initDynamicSiteFields')
+
 new Vue({
     router,
     store,
     render: createElement => createElement(App),
 }).$mount('#app')
+
+

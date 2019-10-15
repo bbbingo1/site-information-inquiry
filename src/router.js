@@ -14,48 +14,49 @@ export default new Router({
             title: '后台管理系统',
         },
         children: [{
-                path: '/index',
-                name: 'index',
-                meta: {
-                    title: '首页',
-                },
-                component: () => import('./views/home/mains/Index.vue'),
-            }, {
-                path: '/site',
-                name: 'site',
-                meta: {
-                    title: '场地信息',
-                },
-                component: () => import('./views/home/mains/Site.vue'),
-            }, {
-                path: '/addSite',
-                name: 'addSite',
-                meta: {
-                    title: '添加场地信息',
-                },
-                component: () => import('./views/home/mains/AddSite.vue'),
-            }, {
-                path: '/editSite',
-                name: 'editSite',
-                meta: {
-                    title: '编辑场地信息',
-                },
-                component: () => import('./views/home/mains/EditSite.vue'),
-            }, {
-                path: '/user',
-                name: 'user',
-                meta: {
-                    title: '用户信息',
-                },
-                component: () => import('./views/home/mains/User.vue'),
-            }, {
-                path: '/operateLog',
-                name: 'operateLog',
-                meta: {
-                    title: '用户操作日志',
-                },
-                component: () => import('./views/home/mains/OperateLog.vue'),
-            }
+            path: '/index',
+            name: 'index',
+            meta: {
+                title: '首页',
+            },
+            component: () => import('./views/home/mains/Index.vue'),
+        }, {
+            path: '/site',
+            name: 'site',
+            meta: {
+                title: '场地信息',
+            },
+            component: () => import('./views/home/mains/Site.vue'),
+        }, {
+            path: '/addSite',
+            name: 'addSite',
+            meta: {
+                title: '添加场地信息',
+            },
+            component: () => import('./views/home/mains/AddSite.vue'),
+        }, {
+            path: '/editSite/:id',
+            name: 'editSite',
+            meta: {
+                title: '编辑场地信息',
+            },
+            props: true,
+            component: () => import('./views/home/mains/EditSite.vue'),
+        }, {
+            path: '/user',
+            name: 'user',
+            meta: {
+                title: '用户信息',
+            },
+            component: () => import('./views/home/mains/User.vue'),
+        }, {
+            path: '/operateLog',
+            name: 'operateLog',
+            meta: {
+                title: '用户操作日志',
+            },
+            component: () => import('./views/home/mains/OperateLog.vue'),
+        }
         ],
     }, {
         path: '/login',

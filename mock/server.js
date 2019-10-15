@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-06 21:25:37
- * @LastEditTime: 2019-09-09 02:25:07
+ * @LastEditTime: 2019-09-22 17:16:56
  * @LastEditors: Please set LastEditors
  */
 'use strict'
@@ -25,7 +25,8 @@ files.forEach((file) => {
 // mock server must be use cors
 app.use(cors())
 // parser json data
-app.use(bodyParser.json({ type: 'application/json' }))
+app.use(bodyParser.json({type: 'application/json'}))
+app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use('/static', express.static(path.join(__dirname, 'public')))
 
@@ -50,7 +51,7 @@ app.post('/user/login', (req, res) => {
 })
 
 // 刷新验证码
-app.post('/user/login/reloadImageCaptcha',(req, res) => {
+app.post('/user/login/reloadImageCaptcha', (req, res) => {
     let data = base['login_reload_image_Captcha']
     res.jsonp(data)
 })
@@ -73,12 +74,64 @@ app.post('/user/logout', (req, res) => {
 // 获取首页查询表单字段
 app.get('/config/dynamicSiteFields', (req, res) => {
     let data = base['dynamicSiteFields']
+    res.jsonp(data)
+})
+// 获取首页查询表单字段
+app.get('/config/dynamicSiteFieldDefaultValues', (req, res) => {
+    let data = base['dynamicSiteFieldDefaultValues']
+    res.jsonp(data)
+})
+
+// 返回场地搜索信息
+app.post('/site', (req, res) => {
+    console.log(req.body)
+    let action = req.body.action
+
+    if (action === 'siteList') {
+        //测试分页
+        let data = JSON.parse(JSON.stringify(base['site'][action]))
+        if (req.body.pageNum == 1) {
+            res.jsonp(data)
+        } else {
+            data.data.result.sort(() => Math.random() - 0.5);
+            res.jsonp(data)
+        }
+    } else if (action === 'add' || action === 'update' || action === 'delete') {
+        res.jsonp({
+                code:'S_OK'
+            })
+    }
+})
+
+app.get('/site/:id', (req, res) => {
+    let id = req.params.id
+    if (id === 'downloadTemplate') {
+        let file = fs.readFileSync(__dirname + '/public/images/captcha.png', 'binary')
+        res.setHeader('Content-Type', "image/png")
+        res.setHeader('Content-Length', file.length)
+        res.setHeader('Content-Disposition', 'attachment; filename="1.png"')
+        res.write(file, 'binary')
+        res.end()
+        return
+    }
+
+    let data = {
+        code: 'S_OK',
+        data: JSON.parse(JSON.stringify(base['site']['siteList'])).data.result.find(siteInfo => {
+            return siteInfo.id === id
+        })
+    }
     console.log(data)
     res.jsonp(data)
 })
-// 返回场地搜索信息
-app.get('/config/indexSearchResults', (req, res) => {
-    let data = base['indexSearchResults']
+
+app.post('/site/upload',  (req, res) => {
+    res.jsonp({code:'S_OK'})
+})
+
+// 单独创建一个场地信息
+app.post('/config/singleSiteImformation', (req, res) => {
+    let data = base['singleSiteImformation']
     res.jsonp(data)
 })
 // 绑定 9090 端口开启
