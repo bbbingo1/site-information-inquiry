@@ -2,14 +2,17 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-06 21:25:37
- * @LastEditTime: 2019-10-15 14:04:45
+ * @LastEditTime: 2019-10-16 21:17:41
  * @LastEditors: Please set LastEditors
  -->
 <template>
   <div class="index">
-    <dynamic-field-resources-form :siteType="siteType" :dynamicFiledValues="dynamicFiledValues" ref="searchForm">
-      <el-button slot="eventButton" type="primary" icon="el-icon-search" @click="search()">搜索</el-button>
-    </dynamic-field-resources-form>
+    <keep-alive>
+      <dynamic-field-resources-form :siteType="siteType" ref="searchForm">
+        <el-button slot="eventButton" type="primary" icon="el-icon-search" @click="search()">搜索</el-button>
+      </dynamic-field-resources-form>
+    </keep-alive>
+
     <keep-alive>
       <gaode-map lat="22.574405" lng="114.095388" :listMsg="currentListContent">
         <el-pagination background slot="pagination" :hide-on-single-page="true" layout="prev, pager, next" :current-page="pageNum" :page-size="pageSize" :total="total" @current-change="search"></el-pagination>
@@ -49,7 +52,6 @@ export default {
   },
   data() {
     return {
-      dynamicFiledValues: null,
       searchFormData: {},
       currentListContent: [],
       pageNum: 1,
@@ -64,7 +66,7 @@ export default {
   },
   mounted() {
     this.$refs.searchForm.$refs.dynamicFiledForm.$el.reset();
-    searchData(this, 1);
+    // searchData(this, 1);
   },
   methods: {
     search(val) {

@@ -4,7 +4,7 @@
  * @Date: 2019-09-06 21:25:37
 <<<<<<< HEAD
 <<<<<<< HEAD
- * @LastEditTime: 2019-10-16 01:11:34
+ * @LastEditTime: 2019-10-23 21:59:00
 =======
  * @LastEditTime: 2019-10-11 23:06:21
 >>>>>>> 406e4c98191736cd7a7ce999e6329e0f9a17aa2c
@@ -22,13 +22,20 @@
       <div style="display: inline-block; padding-right:10px;">
         <el-button type="primary" icon="el-icon-search" @click="searchItems('test')">测量距离</el-button>
       </div>
-      <div style="display: inline-block;">
-        <el-button type="info" icon="el-icon-search" @click="searchItems('traffic')">查看交通</el-button>
+      <div style="display: inline-block; padding-right:10px;">
+        <el-button type="primary" icon="el-icon-edit" @click="searchItems('walk')">步行规划</el-button>
       </div>
+      <div style="display: inline-block; padding-right:10px;">
+        <el-button type="primary" icon="el-icon-s-flag" @click="searchItems('drive')">驾车规划</el-button>
+      </div>
+      <!-- <div style="display: inline-block;">
+        <el-button type="info" icon="el-icon-search" @click="searchItems('traffic')">查看交通</el-button>
+      </div> -->
     </div>
     <div class="m-container">
       <div id="js-container" class="map" @mousewheel.stop>正在加载地图 ...</div>
       <div id="js-panel" @mousewheel.stop></div>
+      <div id="js-panel2" @mousewheel.stop></div>
     </div>
     <div class="m-result">
       <div id="js-result" class="result" @mousewheel.stop></div>
@@ -64,6 +71,8 @@ export default {
       destinationValue: { lng: 0, lat: 0 }, //终点经纬度
       independentMarkerItem: {
         placeSearch: null, //地点查询实例
+        walkPlanning: null, // 步行规划实例
+        drivePlanning: null, // 驾车规划实例
         markers: [], //存放查询生成的标注点
         line: null,
         text: null
@@ -295,14 +304,19 @@ export default {
         //移除之前的标注
         window.map.remove(this.independentMarkerItem.markers);
 
+        var l1 = new AMap.LngLat(
+          this.departureValue.lng,
+          this.departureValue.lat
+        );
+        var l2 = new AMap.LngLat(
+          this.destinationValue.lng,
+          this.destinationValue.lat
+        );
         // 新增两个标注点
         var m1 = new AMap.Marker({
           map: window.map,
           draggable: true,
-          position: new AMap.LngLat(
-            this.departureValue.lng,
-            this.departureValue.lat
-          ),
+          position: l1,
           icon: startIcon,
           offset: new AMap.Pixel(-13, -30),
           zIndex: 140
@@ -310,10 +324,7 @@ export default {
         var m2 = new AMap.Marker({
           map: window.map,
           draggable: true,
-          position: new AMap.LngLat(
-            this.destinationValue.lng,
-            this.destinationValue.lat
-          ),
+          position: l2,
           icon: endIcon,
           offset: new AMap.Pixel(-13, -30),
           zIndex: 140
@@ -342,11 +353,25 @@ export default {
               console.log(response);
             })
             .catch(error => console.log(error));
+        } else {
+          var options = {
+            map: window.map, // 展现结果的地图实例
+            panel: "js-panel2", // 结果列表将在此容器中进行展示。
+            hideMarkers: false,
+            isOutline: true,
+            outlineColor: "#ffeeee",
+            autoFitView: true // 是否自动调整地图视野使绘制的 Marker点都处于视口的可见范围
+          };
+          if (type == "walk") {
+            this.walkPanel(options, l1, l2);
+          } else if (type == "drive") {
+            this.drivePanel(options, l1, l2);
+          }
         }
       } else {
         this.$message({
           type: "warning",
-          message: "请先选择一个起始地点!"
+          message: "请先选择地点!"
         });
       }
     },
@@ -418,6 +443,84 @@ export default {
       console.log(distance);
       this.independentMarkerItem.text.setText("两点相距" + distance + "米");
       this.independentMarkerItem.text.setPosition(textPos);
+    },
+    /**
+     * @description: 生成步行路线规划列表并触发执行后续操作
+     * @param {String}
+     * @return:
+     */
+    walkPanel(options, l1, l2) {
+      //构造步行规划类
+      if (!this.independentMarkerItem.walkPlanning) {
+        this.independentMarkerItem.walkPlanning = new AMap.Walking(options);
+        this.independentMarkerItem.drivePlanning = null;
+      }
+      //根据起终点坐标规划步行路线
+      this.independentMarkerItem.walkPlanning.search(
+        l1,
+        l2,
+        (status, result) => {
+          // result即是对应的不行路线数据信息，相关数据结构文档请参考  https://lbs.amap.com/api/javascript-api/reference/route-search#m_RidingResult
+          if (status === "complete") {
+            this.$message({
+              type: "success",
+              message: "绘制步行路线完成!"
+            });
+          } else {
+            if (result == '"OVER_DIRECTION_RANGE"') {
+              this.$message({
+                type: "error",
+                message: `路线计算失败，通常是由于道路起点和终点距离过长导致`
+              });
+            } else {
+              this.$message({
+                type: "error",
+                message: "步行路线数据查询失败!"
+              });
+            }
+          }
+        }
+      );
+    },
+    /**
+     * @description: 生成驾车路线规划列表并触发执行后续操作
+     * @param {String}
+     * @return:
+     */
+    drivePanel(options, l1, l2) {
+      //构造驾车规划类
+      if (!this.independentMarkerItem.drivePlanning) {
+        this.independentMarkerItem.drivePlanning = new AMap.Walking(options);
+        this.independentMarkerItem.walkPlanning = null;
+      }
+      //根据起终点坐标规划步行路线
+      // 根据起终点经纬度规划驾车导航路线
+      this.independentMarkerItem.drivePlanning.search(
+        l1,
+        l2,
+        (status, result) => {
+          // result 即是对应的驾车导航信息，相关数据结构文档请参考  https://lbs.amap.com/api/javascript-api/reference/route-search#m_DrivingResult
+          debugger;
+          if (status === "complete") {
+            this.$message({
+              type: "success",
+              message: "绘制驾车路线完成!"
+            });
+          } else {
+            if (result == '"OVER_DIRECTION_RANGE"') {
+              this.$message({
+                type: "error",
+                message: `路线计算失败，通常是由于道路起点和终点距离过长导致`
+              });
+            } else {
+              this.$message({
+                type: "error",
+                message: `获取驾车数据失败：!,原因：${result}`
+              });
+            }
+          }
+        }
+      );
     }
   },
   async created() {
@@ -426,13 +529,19 @@ export default {
       this.initMap();
       // 未载入高德地图API，则先载入API再初始化
     } else {
-      await remoteLoad(`http://webapi.amap.com/maps?v=1.4.15&key=${MapKey}`);
+      await remoteLoad(
+        `http://webapi.amap.com/maps?v=1.4.15&key=${MapKey}&plugin=AMap.Driving&plugin=AMap.Walking`
+      );
       await remoteLoad("http://webapi.amap.com/ui/1.0/main.js");
       this.initMap();
     }
   },
   mounted() {
-    if (window.AMap.service) {
+    let that = this;
+    if (
+      window.AMap &&
+      Object.prototype.hasOwnProperty.call(window.AMap, "service")
+    ) {
       //自动补全搜索（目的地）
       window.AMap.service(["AMap.Autocomplete"], function() {
         var autoOptions = {
@@ -476,6 +585,18 @@ export default {
     top: 10%;
     left: 2%;
     width: 24%;
+    opacity: 0.9;
+    // border: 1px solid #ccc;
+    border-radius: 2px;
+  }
+  #js-panel2 {
+    position: absolute;
+    background-color: white;
+    max-height: 80%;
+    overflow-y: auto;
+    top: 10%;
+    right: 2%;
+    width: 22%;
     opacity: 0.9;
     // border: 1px solid #ccc;
     border-radius: 2px;

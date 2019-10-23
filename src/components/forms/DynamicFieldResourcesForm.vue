@@ -70,7 +70,6 @@
         name: "DynamicFieldResourcesForm",
         props: {
             siteType: String,
-            dynamicFiledValues: Object
         },
         data() {
             return {
@@ -98,31 +97,6 @@
                     item => item.label === val
                 );
             },
-            dynamicFiledValues(val) {
-                Object.keys(val).forEach(item => {
-                    const inputNodeList = document.getElementsByName(item)
-                    if (inputNodeList.length === 0) {
-                        return
-                    }
-                    if (inputNodeList[0].type === 'text') {
-                        inputNodeList[0].value = val[item]
-                    }
-                    if (inputNodeList[0].type === 'radio') {
-                        inputNodeList.forEach(radio => {
-                            if (radio.value === val[item]) {
-                                radio.checked = true
-                            }
-                        })
-                    }
-                    if (inputNodeList[0].type === 'checkbox') {
-                        inputNodeList.forEach(checkbox => {
-                            if (val[item].some(value => value === checkbox.value)) {
-                                checkbox.checked = true
-                            }
-                        })
-                    }
-                });
-            }
         },
         computed: {
             radioOpts() {
