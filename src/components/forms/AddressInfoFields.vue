@@ -34,12 +34,17 @@
         </div>
       </div>
     </div>
+    <div class="map">
+      <simple-map></simple-map>
+    </div>
   </div>
 </template>
 
 <script>
+import SimpleMap from "../maps/SimpleMap.vue";
 export default {
   name: "AddressInfoFields",
+  components: { SimpleMap },
   props: {
     siteInfo: Object
   }
@@ -71,5 +76,9 @@ export default {
       display: inline-block;
     }
   }
+}
+.map {
+  margin: 20px 15px;
+  border-bottom: 2px solid #ebebeb;
 }
 </style>
