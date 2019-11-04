@@ -35,7 +35,7 @@
       </div>
     </div>
     <div class="map">
-      <simple-map></simple-map>
+      <simple-map @drag='drag'></simple-map>
     </div>
   </div>
 </template>
@@ -47,6 +47,16 @@ export default {
   components: { SimpleMap },
   props: {
     siteInfo: Object
+  },
+  methods: {
+    drag(positionResult) {
+      console.log(positionResult);
+      this.siteInfo.location.lat = positionResult.position.lat;
+      this.siteInfo.location.lng = positionResult.position.lng;
+      this.siteInfo.otherMsg =
+        "位于：" + positionResult.address + ";\
+        靠近于：" + positionResult.nearestRoad;
+    }
   }
 };
 </script>

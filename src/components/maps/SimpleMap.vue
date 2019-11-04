@@ -6,7 +6,7 @@
       drag: 拖放完成事件
  * @Author: your name
  * @Date: 2019-08-29 13:38:27
- * @LastEditTime: 2019-10-24 13:27:36
+ * @LastEditTime: 2019-11-04 14:01:07
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -91,8 +91,7 @@ export default {
           if (!this.dragStatus) {
             this.dragStatus = true;
           } else {
-            console.log(positionResult)
-            // this.$emit("drag", positionResult);
+            this.$emit("drag", positionResult);
           }
         });
         // 启动拖放
