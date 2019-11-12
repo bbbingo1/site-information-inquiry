@@ -45,7 +45,24 @@ export default {
     // 搜索
     handleSearch() {
       if (this.searchKey) {
-        this.placeSearch.search(this.searchKey);
+        this.placeSearch.search(this.searchKey, function (status, result) {
+          // 创建地图拖拽
+          let positionPicker = new PositionPicker({
+            mode: "dragMarker", // 设定为拖拽地图模式，可选'dragMap'、'dragMarker'(拖拽图标模式)，默认为'dragMap'
+            map: map // 依赖地图对象
+          });
+          // 拖拽完成发送自定义 drag 事件
+          positionPicker.on("success", positionResult => {
+            // 过滤掉初始化地图后的第一次默认拖放
+            if (!this.dragStatus) {
+              this.dragStatus = true;
+            } else {
+              this.$emit("drag", positionResult);
+            }
+          });
+          // 启动拖放
+          positionPicker.start();
+        });
       }
     },
     // 初始化地图

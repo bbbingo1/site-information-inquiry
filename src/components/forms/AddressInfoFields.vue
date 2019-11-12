@@ -29,7 +29,7 @@
       <div class="item">
         <div class="label">其他信息</div>
         <div class="filed">
-          <el-input type="textarea" placeholder="'property1':{label:'label1',value:'value1'},property2':{label:'label2',value:'value2'}" style="width: 350px" maxlength="1000" name="otherMsg" v-model="siteInfo.otherMsg" show-word-limit>
+          <el-input type="textarea" style="width: 350px" maxlength="1000" name="otherMsg" v-model="siteInfo.otherMsg" show-word-limit>
           </el-input>
         </div>
       </div>
