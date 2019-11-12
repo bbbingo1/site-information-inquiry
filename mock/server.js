@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-06 21:25:37
- * @LastEditTime: 2019-10-16 00:48:53
+ * @LastEditTime: 2019-10-16 01:43:41
  * @LastEditors: Please set LastEditors
  */
 'use strict'
@@ -109,11 +109,6 @@ app.post('/user/logout', (req, res) => {
 // 获取首页查询表单字段
 app.get('/config/dynamicSiteFields', (req, res) => {
     let data = base['dynamicSiteFields']
-    res.jsonp(data)
-})
-// 获取首页查询表单字段
-app.get('/config/dynamicSiteFieldDefaultValues', (req, res) => {
-    let data = base['dynamicSiteFieldDefaultValues']
     res.jsonp(data)
 })
 

@@ -29,19 +29,34 @@
       <div class="item">
         <div class="label">其他信息</div>
         <div class="filed">
-          <el-input type="textarea" placeholder="'property1':{label:'label1',value:'value1'},property2':{label:'label2',value:'value2'}" style="width: 350px" maxlength="1000" name="otherMsg" v-model="siteInfo.otherMsg" show-word-limit>
+          <el-input type="textarea" style="width: 350px" maxlength="1000" name="otherMsg" v-model="siteInfo.otherMsg" show-word-limit>
           </el-input>
         </div>
       </div>
+    </div>
+    <div class="map">
+      <simple-map @drag='drag'></simple-map>
     </div>
   </div>
 </template>
 
 <script>
+import SimpleMap from "../maps/SimpleMap.vue";
 export default {
   name: "AddressInfoFields",
+  components: { SimpleMap },
   props: {
     siteInfo: Object
+  },
+  methods: {
+    drag(positionResult) {
+      console.log(positionResult);
+      this.siteInfo.location.lat = positionResult.position.lat;
+      this.siteInfo.location.lng = positionResult.position.lng;
+      this.siteInfo.otherMsg =
+        "位于：" + positionResult.address + ";\
+        靠近于：" + positionResult.nearestRoad;
+    }
   }
 };
 </script>
@@ -71,5 +86,9 @@ export default {
       display: inline-block;
     }
   }
+}
+.map {
+  margin: 20px 15px;
+  border-bottom: 2px solid #ebebeb;
 }
 </style>

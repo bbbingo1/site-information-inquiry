@@ -43,13 +43,14 @@
         mounted() {
             this.$refs.siteForm.$refs.dynamicFiledForm.$el.reset()
             getSiteInfo(this.id).then(res => {
-                let s = '';
-                Object.keys(res.data).forEach((item) => {
-                    if (res.data[item].value && res.data[item].label) {
-                        s += '\'' + item + '\':{\'label\':\'' + res.data[item].label + '\',\'value\':\'' + res.data[item].value + '\'},'
-                    }
-                });
-                this.siteInfo = Object.assign({otherMsg: s.substr(0, s.length - 1)}, res.data);
+                // let s = '';
+                // Object.keys(res.data).forEach((item) => {
+                //     if (res.data[item].value && res.data[item].label) {
+                //         s += '\'' + item + '\':{\'label\':\'' + res.data[item].label + '\',\'value\':\'' + res.data[item].value + '\'},'
+                //     }
+                // });
+                // this.siteInfo = Object.assign({otherMsg: s.substr(0, s.length - 1)}, res.data);
+                this.siteInfo =  res.data;
             }).catch(error => console.log(error))
         },
         beforeCreate: function () {
