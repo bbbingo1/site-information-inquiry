@@ -1,25 +1,36 @@
-/*
- * @Description: In User Settings Edit
- * @Author: your name
- * @Date: 2019-08-27 01:10:53
- * @LastEditTime: 2019-08-28 19:48:19
- * @LastEditors: Please set LastEditors
- */
-// The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
-import App from './App'
-import ElementUI from 'element-ui';
-import 'element-ui/lib/theme-chalk/index.css';
+
+import 'normalize.css/normalize.css'// A modern alternative to CSS resets
+import 'font-awesome/css/font-awesome.css' // font-awesome ͼ��
+
+
+import ElementUI from 'element-ui'
+import './assets/styles/element-variables.scss' // custom element style
+
+import './assets/styles/main.scss' // global css
+import locale from 'element-ui/lib/locale/lang/zh-CN' // lang i18n
+
+import App from './App.vue'
 import router from './router'
+import store from './store'
+
+import '@/permission' // permission control
+
+
+Vue.use(ElementUI, {locale})
 
 Vue.config.productionTip = false
-Vue.use(ElementUI);
 
-/* eslint-disable no-new */
+// 初始化请求路径
+store.dispatch('setBaseUrl', process.env.NODE_ENV !== 'production' ? process.env.VUE_APP_API_BASE_URL : `${location.protocol}//${location.hostname}${window.location.port ? ':' + window.location.port : ''}/admin/api`)
+
+// 初始化动态表单
+store.dispatch('initDynamicSiteFields')
+
 new Vue({
-  el: '#app',
-  router,
-  components: { App },
-  template: '<App/>'
-})
+    router,
+    store,
+    render: createElement => createElement(App),
+}).$mount('#app')
+
+

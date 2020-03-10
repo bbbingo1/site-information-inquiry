@@ -1,0 +1,20 @@
+
+*, :after, :before {
+  box-sizing: border-box;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+  font-family: "Microsoft YaHei", tahoma, verdana, sans-serif;
+  font-size: 12px;
+}
+
+ul, li {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.fa-button span {
+  margin-left: 5px;
+}

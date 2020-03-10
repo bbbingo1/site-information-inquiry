@@ -1,0 +1,54 @@
+{
+  "login_Success": {
+    "code": "S_OK",
+    "data": {
+      "id": 1,
+      "account": "admin",
+      "name": "林炳城",
+      "image": "xxxx.jpg",
+      "sid": "sid"
+    }
+  },
+  "login_FA_NEED_IMAGE_CAPTCHA": {
+    "code": "FA_NEED_IMAGE_CAPTCHA",
+    "data": {
+      "sid": "sid",
+      "image": "http://127.0.0.1:9090/static/images/captcha.png"
+    }
+  },
+  "login_FA_IMAGE_CAPTCHA_ERROR": {
+    "code": "FA_IMAGE_CAPTCHA_ERROR",
+    "data": {
+      "sid": "sid",
+      "image": "http://127.0.0.1:9090/static/images/captcha.png"
+    }
+  },
+  "login_FA_NEED_SMS_CAPTCHA": {
+    "code": "FA_NEED_SMS_CAPTCHA",
+    "data": {
+      "sid": "sid"
+    }
+  },
+  "login_FA_SMS_CAPTCHA_ERROR": {
+    "code": "FA_SMS_CAPTCHA_ERROR"
+  },
+  "login_FA_NEED_EMAIL_CAPTCHA": {
+    "code": "FA_NEED_EMAIL_CAPTCHA"
+  },
+  "login_FA_EMAIL_CAPTCHA_ERROR": {
+    "code": "FA_EMAIL_CAPTCHA_ERROR"
+  },
+  "login_FA_USERNAME_OR_PASSWORD_ERROR": {
+    "code": "FA_USERNAME_OR_PASSWORD_ERROR",
+    "data": {
+      "sid": "sid"
+    }
+  },
+  "login_reload_image_Captcha": {
+    "code": "S_OK",
+    "data": {
+      "sid": "sid",
+      "image": "http://127.0.0.1:9090/static/images/captcha2.png"
+    }
+  }
+}

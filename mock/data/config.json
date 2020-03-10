@@ -1,0 +1,162 @@
+{
+  "dynamicSiteFields": {
+    "code": "S_OK",
+    "data": [
+      {
+        "label": "酒店",
+        "options": {
+          "inputOpts": [
+            {
+              "field": "beachNum",
+              "label": "沙滩数量",
+              "value": "0"
+            },
+            {
+              "field": "ballroomArea",
+              "label": "宴会厅面积",
+              "value": "0"
+            },
+            {
+              "field": "field1",
+              "label": "双床房数量",
+              "value": "0"
+            },
+            {
+              "field": "field2",
+              "label": "大床房数量",
+              "value": "0"
+            },
+            {
+              "field": "field3",
+              "label": "经济房数量",
+              "value": "0"
+            },
+            {
+              "field": "field4",
+              "label": "最小平米",
+              "value": "0"
+            }
+          ],
+          "radioOpts": [
+            {
+              "field": "field5",
+              "label": "单选1",
+              "value": "",
+              "radios": [
+                {
+                  "label": "选项1"
+                },
+                {
+                  "label": "选项2"
+                },
+                {
+                  "label": "选项3"
+                }
+              ]
+            },
+            {
+              "field": "field6",
+              "label": "单选2",
+              "value": "",
+              "radios": [
+                {
+                  "label": "选项1"
+                },
+                {
+                  "label": "选项2"
+                },
+                {
+                  "label": "选项3"
+                }
+              ]
+            }
+          ],
+          "checkboxOpts": [
+            {
+              "field": "field9",
+              "label": "多选1",
+              "value": [
+                "选项1"
+              ],
+              "checkboxs": [
+                {
+                  "label": "选项1"
+                },
+                {
+                  "label": "选项2"
+                },
+                {
+                  "label": "选项3"
+                }
+              ]
+            },
+            {
+              "field": "field10",
+              "label": "多选2",
+              "value": [
+                "选项1"
+              ],
+              "checkboxs": [
+                {
+                  "label": "选项1"
+                },
+                {
+                  "label": "选项2"
+                },
+                {
+                  "label": "选项3"
+                }
+              ]
+            },
+            {
+              "field": "field11",
+              "label": "多选3",
+              "value": [
+                "选项1"
+              ],
+              "checkboxs": [
+                {
+                  "label": "选项1"
+                },
+                {
+                  "label": "选项2"
+                },
+                {
+                  "label": "选项3"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "label": "美食",
+        "options": {
+          "inputOpts": [
+            {
+              "field": "field12",
+              "label": "卡路里上限",
+              "value": "0"
+            },
+            {
+              "field": "field13",
+              "label": "好评度",
+              "value": "0"
+            },
+            {
+              "field": "field14",
+              "label": "月销量",
+              "value": "0"
+            }
+          ]
+        }
+      },
+      {
+        "label": "旅馆"
+      },
+      {
+        "label": "游泳"
+      }
+    ]
+  }
+}
